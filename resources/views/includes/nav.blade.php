@@ -60,7 +60,7 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Bult Creation</p>
+                  <p>Bulk Creation</p>
                 </a>
               </li>
             </ul>
@@ -90,7 +90,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('districts.import')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Batch Upload</p>
                 </a>

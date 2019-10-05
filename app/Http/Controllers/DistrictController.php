@@ -160,4 +160,14 @@ class DistrictController extends Controller
     {
         //
     }
+
+    /**
+     * Display the import page 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function import()
+    {
+        return view('location.districts.import');
+    }
 }

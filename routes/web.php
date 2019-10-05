@@ -25,4 +25,11 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resources([
 	    'districts' => 'DistrictController',
 	]);
+
+	Route::get('/districts/import/from-csv',[
+			'uses' => 'DistrictController@import',
+			'as' => 'districts.import'
+		]
+	);
+	Route::post('/districts/import/from-csv','DistrictController@handleImport')->name('districts.handleimport');
 });

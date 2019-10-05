@@ -48,7 +48,7 @@
       <li class="nav-item dropdown">
 
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i>{{Auth::user()->name}}</i>
+          @auth<i>{{Auth::user()->name}}</i>@endauth
           <img src="{{asset('img/user.png')}}" alt="Marico Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
         </a>
