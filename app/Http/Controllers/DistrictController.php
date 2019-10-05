@@ -17,7 +17,7 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $districts = District::where(['active' => '1', 'deleted' => '0'])->get();
+        $districts = District::where(['active' => '1', 'deleted' => '0'])->orderBy('name', 'ASC')->get();
         return view('location.districts.index', compact('districts'));
     }
 
@@ -92,7 +92,8 @@ class DistrictController extends Controller
      */
     public function show($id)
     {
-        //
+        $district = District::where(['id' => $id])->first();
+        return view('location.districts.show', compact('district'));
     }
 
     /**
@@ -103,7 +104,8 @@ class DistrictController extends Controller
      */
     public function edit($id)
     {
-        //
+        $district = District::where(['id' => $id])->first();
+        return view('location.districts.edit', compact('district'));
     }
 
     /**
@@ -115,7 +117,37 @@ class DistrictController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:28|alpha',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+            DB::beginTransaction();
+
+        try {
+
+            District::where(['id' => $id])->update(
+                [
+                    'name' => $request->name,
+                    'updated_at' => date('Y-m-d h:i:s'),
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'District Updated Successfully!']);
+   
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          return response()->json(['error'=>array('Could not add district!')]);
+
+        }
     }
 
     /**

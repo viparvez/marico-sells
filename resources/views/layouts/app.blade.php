@@ -5,3 +5,5 @@
 @yield('content')
 
 @include('includes/footer')
+
+@yield('footer-resource')

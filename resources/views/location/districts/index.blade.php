@@ -3,30 +3,17 @@
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Districts</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item">Location Management</li>
-              <li class="breadcrumb-item active">Districts</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-
+    <br>
     <section class="content">
       <div class="row">
 
-        <div class="col-10"></div>
+        <div class="col-10">
+          <ol class="breadcrumb float-sm-left">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item">Location Management</li>
+            <li class="breadcrumb-item active">Districts</li>
+          </ol>
+        </div>
         <div class="col-2">
           <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
         </div> 
@@ -35,7 +22,7 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-striped">
                 <thead>
                 <tr>
                   <th>#SL</th>
@@ -50,7 +37,9 @@
                     <td>{{$k+1}}</td>
                     <td>{{$v->code}}</td>
                     <td>{{$v->name}}</td>
-                    <td>Action</td>
+                    <td>
+                      <a class="btn btn-xs btn-success" onclick="show('{{route('districts.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                    </td>
                   </tr>
                 @endforeach
               </table>
@@ -67,9 +56,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-
-
-
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -84,7 +70,7 @@
           <ul></ul>
       </div>
 
-      <form role="form" action="{{route('districts.store')}}" id="districts" method="POST">
+      <form role="form" action="{{route('districts.store')}}" id="create" method="POST">
         <div class="card-body">
           {{csrf_field()}}
           <div class="form-group">
@@ -96,7 +82,8 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+          <button class='btn btn-block btn-success btn-sm' id='submit' type='submit'>SAVE</button>
+          <button class='btn btn-block btn-success btn-sm' id='loading' style='display: none' disabled=''>Working...</button>
         </div>
       </form>
 
@@ -108,10 +95,30 @@
 <!-- /.modal -->
 
 
-<!-- ./wrapper -->
+<div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class='modal-header'>
+          <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        </div>
+        <div class='alert alert-danger print-error-msg' id='error_messages' style='display:none'>
+          <ul></ul>
+        </div>
+        <div class="text-center">
+          <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
+        </div>
+
+        <div id="showcontent">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 @endsection
 
+@section('footer-resource')
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -147,6 +154,9 @@
 <script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
+
+<script src="{{asset('js/marico.js')}}"></script>
 
 <!-- Page script -->
 <script>
@@ -217,78 +227,8 @@
   })
 </script>
 
-<script type="text/javascript">
-
-  $(document).ready(function() {
-      
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000
-      });
-
-      $("#submit").click(function(e){
-
-        e.preventDefault();
-        
-        var _url = $("#districts").attr("action");
-
-
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-
-        var _data = $("#districts").serialize();
-
-          $.ajax({
-
-              url: _url,
-
-              type:'POST',
-
-              dataType:"json",
-
-              data:_data,
-
-              success: function(data) {
-
-                  if($.isEmptyObject(data.error)){
-
-                    Toast.fire({
-                      type: 'success',
-                      title: 'Data inserted.'
-                    }).then(
-                      function () {
-                        window.location.reload();
-                      },
-                    );
-                    
-
-                  }else{
-                    
-                    printErrorMsg(data.error);
-                  }
-
-              }
-
-          });
-
-      }); 
-
-
-      function printErrorMsg (msg) {
-        $(".print-error-msg").find("ul").html('');
-        $(".print-error-msg").css('display','block');
-        $.each( msg, function( key, value ) {
-          $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-        });
-      }
-
-  });
-</script>
-
 </body>
 </html>
+
+@endsection
+

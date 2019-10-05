@@ -1,10 +1,13 @@
+      @php
+        $route = Route::currentRouteName();
+      @endphp
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="{{route('home')}}" class="nav-link active">
+          <li @if($route == 'home') class="active" @else @endif>
+            <a href="{{route('home')}}" @if($route == 'home') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -65,8 +68,8 @@
           <!-- Products End -->
 
           <!-- Location Start -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li @if($route == 'districts.index') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'districts.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
                 Location Management
@@ -75,7 +78,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('districts.index')}}" class="nav-link">
+                <a href="{{route('districts.index')}}" @if($route == 'districts.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Districts</p>
                 </a>
