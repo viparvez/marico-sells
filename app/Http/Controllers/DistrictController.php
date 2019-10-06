@@ -144,7 +144,7 @@ class DistrictController extends Controller
         } catch (\Exception $e) {
 
           DB::rollback();
-          return response()->json(['error'=>array('Could not add district!')]);
+          return response()->json(['error'=>array('Could not update district!')]);
 
         }
     }

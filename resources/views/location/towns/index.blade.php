@@ -48,7 +48,7 @@
                       @endif
                     </td>
                     <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('towns.show',$v->id)}}','view')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-success" onclick="show('{{route('towns.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
                     </td>
                   </tr>
                 @endforeach

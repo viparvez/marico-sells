@@ -25,12 +25,16 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resources([
 	    'districts' => 'DistrictController',
 	    'towns' => 'TownController',
+	    'products' => 'ProductController',
 	]);
 
 	Route::get('/districts/import/from-csv',[
 			'uses' => 'DistrictController@import',
-			'as' => 'districts.import'
+			'as' => 'districts.import',
 		]
 	);
 	Route::post('/districts/import/from-csv','DistrictController@handleImport')->name('districts.handleimport');
+
+
+	Route::get('/products/import/from-csv','ProductController@import')->name('products.import');
 });

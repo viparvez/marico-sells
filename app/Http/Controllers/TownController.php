@@ -94,7 +94,8 @@ class TownController extends Controller
      */
     public function show($id)
     {
-        //
+        $town = Town::where(['id' => $id])->first();
+        return view('location.towns.show', compact('town'));
     }
 
     /**
@@ -105,7 +106,11 @@ class TownController extends Controller
      */
     public function edit($id)
     {
-        //
+        $town = Town::where(['id' => $id])->first();
+        $districts = District::where(['deleted' => '0', 'active' => '1'])
+                        ->whereNotIn('id', [$town->district_id])->orderBy('name', 'ASC')->get();
+
+        return view('location.towns.edit', compact('town','districts'));
     }
 
     /**
@@ -117,7 +122,38 @@ class TownController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:28|regex:/^[\pL\s\-]+$/u',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+                DB::beginTransaction();
+
+        try {
+
+            Town::where(['id' => $id])->update(
+                [
+                    'name' => $request->name,
+                    'district_id' => $request->district_id,
+                    'active' => $request->active,
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'Town Updated Successfully!']);
+        
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          return response()->json(['error'=>array('Could not update town!')]);
+
+        }
     }
 
     /**

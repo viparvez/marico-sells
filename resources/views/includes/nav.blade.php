@@ -42,8 +42,8 @@
           <!-- Sales End -->
 
           <!-- Products Start -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li @if($route == 'products.index' || $route == 'products.import') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'products.index' || $route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 Product Management
@@ -52,13 +52,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" @if($route == 'products.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('products.import')}}" @if($route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bulk Creation</p>
                 </a>
@@ -68,8 +68,8 @@
           <!-- Products End -->
 
           <!-- Location Start -->
-          <li @if($route == 'districts.index' || $route == 'towns.index') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'districts.index' || $route == 'towns.index') class="nav-link active" @else class="nav-link" @endif>
+          <li @if($route == 'districts.index' || $route == 'towns.index' || $route == 'districts.import') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'districts.index' || $route == 'towns.index' || $route == 'districts.import') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
                 Location Management
@@ -90,7 +90,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('districts.import')}}" class="nav-link">
+                <a href="{{route('districts.import')}}" @if($route == 'districts.import') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Batch Upload</p>
                 </a>
