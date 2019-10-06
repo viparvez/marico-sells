@@ -8,7 +8,9 @@
       <div class="row">
 
         <div class="col-12">
-          
+          @if(Session::has('message'))
+          <p class="alert btn-block btn-danger">{{ Session::get('message') }}</p>
+          @endif
           <div class="col-4">
             <div class="card card-primary">
               <div class="card-header">
@@ -16,7 +18,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" method="POST" action="{{route('products.handleimport')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputFile">Select CSV File</label>

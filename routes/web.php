@@ -37,4 +37,5 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 	Route::get('/products/import/from-csv','ProductController@import')->name('products.import');
+	Route::post('/products/import/from-csv','ProductController@handleimport')->name('products.handleimport');
 });

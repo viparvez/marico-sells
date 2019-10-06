@@ -47,7 +47,7 @@ class DistrictController extends Controller
             return response()->json(['error'=>$validator->errors()->all()]);
         }
 
-                DB::beginTransaction();
+        DB::beginTransaction();
 
         try {
 
