@@ -68,8 +68,8 @@
           <!-- Products End -->
 
           <!-- Location Start -->
-          <li @if($route == 'districts.index') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'districts.index') class="nav-link active" @else class="nav-link" @endif>
+          <li @if($route == 'districts.index' || $route == 'towns.index') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'districts.index' || $route == 'towns.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
                 Location Management
@@ -84,7 +84,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('towns.index')}}" @if($route == 'towns.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Towns</p>
                 </a>

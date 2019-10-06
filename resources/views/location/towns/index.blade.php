@@ -11,7 +11,7 @@
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item">Location Management</li>
-            <li class="breadcrumb-item active">Districts</li>
+            <li class="breadcrumb-item active">Town</li>
           </ol>
         </div>
         <div class="col-2">
@@ -28,16 +28,18 @@
                   <th>#SL</th>
                   <th>Code</th>
                   <th>Name</th>
+                  <th>District</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($districts as $k => $v)
+                @foreach($towns as $k => $v)
                   <tr>
                     <td>{{$k+1}}</td>
                     <td>{{$v->code}}</td>
                     <td>{{$v->name}}</td>
+                    <td>{{$v->District->name}}</td>
                     <td>
                       @if($v->active == '1')
                         <span class="btn btn-xs btn-success">ACTIVE</span>
@@ -46,7 +48,7 @@
                       @endif
                     </td>
                     <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('districts.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-success" onclick="show('{{route('towns.show',$v->id)}}','view')"><span style="color: white">VIEW</span></a>
                     </td>
                   </tr>
                 @endforeach
@@ -68,7 +70,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Add New District</h4>
+        <h4 class="modal-title">Add New Town</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -78,12 +80,21 @@
           <ul></ul>
       </div>
 
-      <form role="form" action="{{route('districts.store')}}" id="create" method="POST">
+      <form role="form" action="{{route('towns.store')}}" id="create" method="POST">
         <div class="card-body">
           {{csrf_field()}}
           <div class="form-group">
-            <label for="districtName">District Name</label>
-            <input type="text" class="form-control" id="districtName" name="name" placeholder="Enter Name">
+            <label for="districtName">Town Name</label>
+            <input type="text" class="form-control" id="townName" name="name" placeholder="Enter Name">
+          </div>
+
+          <div class="form-group">
+            <label for="districtName">District</label>
+            <select class="form-control" name="district_id">
+              @foreach($districts as $k => $v)
+                <option value="{{$v->id}}">{{$v->name}}</option>
+              @endforeach
+            </select>
           </div>
 
         </div>
@@ -140,26 +151,12 @@
 <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 
-<!-- OPTIONAL SCRIPTS -->
-<script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('dist/js/demo.js')}}"></script>
-<script src="{{asset('dist/js/pages/dashboard3.js')}}"></script>
-
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- Toastr -->
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 
 <!-- Select2 -->
 <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
-<!-- Bootstrap4 Duallistbox -->
-<script src="{{asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
-<!-- InputMask -->
-<script src="{{asset('plugins/inputmask/jquery.inputmask.bundle.js')}}"></script>
-<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
-<!-- date-range-picker -->
-<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
-<!-- bootstrap color picker -->
-<script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
@@ -171,68 +168,6 @@
   $(function () {
     $("#example1").DataTable();
   });
-</script>
-
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2({
-      theme: 'bootstrap4'
-    })
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
-    })
-    
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    });
-  })
 </script>
 
 </body>

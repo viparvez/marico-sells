@@ -63,6 +63,7 @@ function update() {
         success: function(data) {
 
             if($.isEmptyObject(data.error)){
+              $('#preview').modal('hide');
               Toast.fire({
                 type: 'success',
                 title: 'Data Updated Successfully!'
@@ -137,11 +138,12 @@ $(document).ready(function() {
 
               processData: false,
               
-          contentType: false,
+              contentType: false,
 
               success: function(data) {
 
                   if($.isEmptyObject(data.error)){
+                    $('#myModal').modal('hide');
                     Toast.fire({
                       type: 'success',
                       title: 'Data Updated Successfully!'

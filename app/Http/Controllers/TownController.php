@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
-Use App\District;
+Use App\Town;
+use App\District;
 
-class DistrictController extends Controller
+
+class TownController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +19,9 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $districts = District::where(['deleted' => '0'])->orderBy('name', 'ASC')->get();
-        return view('location.districts.index', compact('districts'));
+        $towns = Town::where(['deleted' => '0'])->orderBy('name', 'ASC')->get();
+        $districts = District::where(['deleted' => '0', 'active' => '1'])->orderBy('name', 'ASC')->get();
+        return view('location.towns.index', compact('towns','districts'));
     }
 
     /**
@@ -28,7 +31,7 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -40,7 +43,7 @@ class DistrictController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:28|regex:/^[\pL\s\-]+$/u|unique:districts,name',
+            'name' => 'required|max:28|regex:/^[\pL\s\-]+$/u',
         ]);
 
         if ($validator->fails()) {
@@ -51,10 +54,11 @@ class DistrictController extends Controller
 
         try {
 
-            $id = DB::table('districts')->insertGetId(
+            $id = DB::table('towns')->insertGetId(
                 [
                     'code' => time(),
                     'name' => $request->name,
+                    'district_id' => $request->district_id,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                     'createdbyuserid' => Auth::user()->id,
@@ -62,9 +66,9 @@ class DistrictController extends Controller
                 ]
             );
             
-            $code = 'DIS'.sprintf('%06d', $id);
+            $code = 'TWN'.sprintf('%06d', $id);
 
-            District::where(['id' => $id])->update(
+            Town::where(['id' => $id])->update(
               [
                 'code' => $code,
               ]
@@ -72,15 +76,14 @@ class DistrictController extends Controller
 
             DB::commit();
 
-            return response()->json(['success'=>'District Created Successfully!']);
-   
+            return response()->json(['success'=>'Town Created Successfully!']);
+        
         } catch (\Exception $e) {
 
           DB::rollback();
-          return response()->json(['error'=>array('Could not add district!')]);
+          return response()->json(['error'=>array('Could not add town!')]);
 
         }
-
     }
 
     /**
@@ -91,8 +94,7 @@ class DistrictController extends Controller
      */
     public function show($id)
     {
-        $district = District::where(['id' => $id])->first();
-        return view('location.districts.show', compact('district'));
+        //
     }
 
     /**
@@ -103,8 +105,7 @@ class DistrictController extends Controller
      */
     public function edit($id)
     {
-        $district = District::where(['id' => $id])->first();
-        return view('location.districts.edit', compact('district'));
+        //
     }
 
     /**
@@ -116,37 +117,7 @@ class DistrictController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:28|regex:/^[\pL\s\-]+$/u|unique:districts,name,'.$id,
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()->all()]);
-        }
-
-            DB::beginTransaction();
-
-        try {
-
-            District::where(['id' => $id])->update(
-                [
-                    'name' => $request->name,
-                    'active' => $request->active,
-                    'updated_at' => date('Y-m-d H:i:s'),
-                    'updatedbyuserid' => Auth::user()->id,
-                ]
-            );
-
-            DB::commit();
-
-            return response()->json(['success'=>'District Updated Successfully!']);
-   
-        } catch (\Exception $e) {
-
-          DB::rollback();
-          return response()->json(['error'=>array('Could not add district!')]);
-
-        }
+        //
     }
 
     /**
@@ -158,15 +129,5 @@ class DistrictController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Display the import page 
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function import()
-    {
-        return view('location.districts.import');
     }
 }
