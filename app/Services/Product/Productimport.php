@@ -16,6 +16,8 @@ class Productimport
 
 		$prices = [];
 
+		return $rows;
+
 		foreach ($rows as $key => $row) {
 
 			if (!$this->checkValidPrice($row[3])) {

@@ -8,9 +8,13 @@
       <div class="row">
 
         <div class="col-12">
-          @if(Session::has('message'))
-          <p class="alert btn-block btn-danger">{{ Session::get('message') }}</p>
+
+          @if(Session::has('success'))
+          <p class="alert btn-block btn-danger">{{ Session::get('success') }}</p>
+          @elseif(Session::has('error'))
+          <p class="alert btn-block btn-danger">{{ Session::get('error') }}</p>
           @endif
+
           <div class="col-4">
             <div class="card card-primary">
               <div class="card-header">

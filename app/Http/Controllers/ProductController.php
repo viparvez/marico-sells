@@ -118,12 +118,18 @@ class ProductController extends Controller
         
         $validation = new Productimport();
 
-        return $validation->checkImportData($rows);
-
+        $checkData = $validation->checkImportData($rows);
+        /*
+        if(count($checkData) > 0){
+            Session::flash('error', 'File could not be uploaded. Please check for errors.'); 
+            //return redirect()->back();
+            return $checkData;
+        }
+        */
         foreach ($rows as $row) {
-            /*
-            $row = array_combine($header, $row);
             
+            $row = array_combine($header, $row);
+            /*
             Product::create([
                 'name' => $row['name'],
                 'sku_code' => $row['code'],
@@ -146,10 +152,9 @@ class ProductController extends Controller
                 'updatedbyuserid' => Auth::user()->id,
             ]);
             */
-
+            print_r($row);
         }
-        
-        Session::flash('message', 'This is a message!'); 
+        Session::flash('success', 'Data imported successfully!'); 
         return redirect()->back();
 
     }
