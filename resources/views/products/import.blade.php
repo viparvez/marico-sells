@@ -7,10 +7,10 @@
     <section class="content">
       <div class="row">
 
-        <div class="col-12">
+        <div class="col-12 row">
 
           @if(Session::has('success'))
-          <p class="alert btn-block btn-danger">{{ Session::get('success') }}</p>
+          <p class="alert btn-block btn-success">{{ Session::get('success') }}</p>
           @elseif(Session::has('error'))
           <p class="alert btn-block btn-danger">{{ Session::get('error') }}</p>
           @endif
@@ -43,8 +43,31 @@
             </div>
           </div>
 
-          <div class="col-8">
-            
+          <div class="col-8" style="background: white">
+            @if(isset($report_error))
+              <table class="table table-bordered">
+                <thead>
+                  <th>Name</th>
+                  <th>SKU Code</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Message</th>
+                </thead>
+
+                <tbody>
+                  @foreach($report_error as $k => $v)
+                    <tr>
+                      <td>{{$v['name']}}</td>
+                      <td>{{$v['sku_code']}}</td>
+                      <td>{{$v['sku_desc']}}</td>
+                      <td>{{$v['price']}}</td>
+                      <td>{{$v['message']}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            @else
+            @endif
           </div>
 
         </div>

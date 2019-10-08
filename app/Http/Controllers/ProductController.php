@@ -103,43 +103,40 @@ class ProductController extends Controller
     public function handleimport(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'file' => 'required',
+            'file' => 'required|mimes:csv,txt',
         ]);
         
         if ($validator->fails()) {
-            //return response()->json(['error'=>$validator->errors()->all()]);
-            return redirect()->back()->withErrors($validator);
+            Session::flash('error', 'Please upload valid file!'); 
+            return redirect()->back();
         }
         
         $file = $request->file('file');
         $csvData = file_get_contents($file);
-        $rows = array_map('str_getcsv', explode("\n", $csvData));
+        $rows = array_map('str_getcsv', file($file, FILE_SKIP_EMPTY_LINES));
         $header = array_shift($rows);
         
         $validation = new Productimport();
 
         $checkData = $validation->checkImportData($rows);
-        /*
+
         if(count($checkData) > 0){
-            Session::flash('error', 'File could not be uploaded. Please check for errors.'); 
-            //return redirect()->back();
-            return $checkData;
-        }
-        */
-        foreach ($rows as $row) {
+
+            $report_error = [];
+
+            foreach ($checkData as $key => $value) {
+                $report_error[$key]['name'] = $value['0'];
+                $report_error[$key]['sku_code'] = $value['1'];
+                $report_error[$key]['sku_desc'] = $value['2'];
+                $report_error[$key]['price'] = $value['3'];
+                $report_error[$key]['message'] = $value['message'];
+            }
             
-            $row = array_combine($header, $row);
-            /*
-            Product::create([
-                'name' => $row['name'],
-                'sku_code' => $row['code'],
-                'sku_desc' => $row['description'],
-                'unit_price' => $row['price'],
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'createdbyuserid' => Auth::user()->id,
-                'updatedbyuserid' => Auth::user()->id,
-            ]);
+            Session::flash('error', 'File could not be uploaded. Please check for errors.');
+            return view('products.import', compact('report_error'));
+        }
+
+        foreach ($rows as $row) {
             
             Product::create([
                 'name' => $row[0],
@@ -151,12 +148,12 @@ class ProductController extends Controller
                 'createdbyuserid' => Auth::user()->id,
                 'updatedbyuserid' => Auth::user()->id,
             ]);
-            */
-            print_r($row);
+            
         }
+
         Session::flash('success', 'Data imported successfully!'); 
         return redirect()->back();
-
+        
     }
 
 
