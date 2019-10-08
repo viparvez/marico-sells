@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    'districts' => 'DistrictController',
 	    'towns' => 'TownController',
 	    'products' => 'ProductController',
+	    'retailers' => 'RetailerController',
 	]);
 
 	Route::get('/districts/import/from-csv',[

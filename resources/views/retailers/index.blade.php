@@ -25,22 +25,24 @@
                 <thead>
                 <tr>
                   <th>#SL</th>
-                  <th>Name</th>
-                  <th>SKU Code</th>
-                  <th>Description</th>
-                  <th>Unit Price</th>
+                  <th>Shop Name</th>
+                  <th>Retailer Code</th>
+                  <th>Town</th>
+                  <th>RMN</th>
+                  <th>Email</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($products as $k => $v)
+                @foreach($retailers as $k => $v)
                   <tr>
                     <td>{{$k+1}}</td>
-                    <td>{{$v->name}}</td>
-                    <td>{{$v->sku_code}}</td>
-                    <td>{{$v->sku_desc}}</td>
-                    <td>{{$v->unitprice}}</td>
+                    <td>{{$v->shopname}}</td>
+                    <td>{{$v->code}}</td>
+                    <td>{{$v->Town->name}}</td>
+                    <td>{{$v->rmn}}</td>
+                    <td>{{$v->email}}</td>
                     <td>
                       @if($v->active == '1')
                         <span class="btn btn-xs btn-success">ACTIVE</span>
@@ -49,7 +51,7 @@
                       @endif
                     </td>
                     <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('products.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-success" onclick="show('{{route('retailers.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
                     </td>
                   </tr>
                 @endforeach
@@ -68,10 +70,10 @@
   <!-- /.content-wrapper -->
 
 <div class="modal fade" id="myModal">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Add New Product</h4>
+        <h4 class="modal-title">Add New Retailer</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -81,28 +83,71 @@
           <ul></ul>
       </div>
 
-      <form role="form" action="{{route('products.store')}}" id="create" method="POST">
+      <form role="form" action="{{route('retailers.store')}}" id="create" method="POST">
         <div class="card-body">
           {{csrf_field()}}
-          <div class="form-group">
-            <label for="">Product Name</label>
-            <input type="text" class="form-control" id="productName" name="name" placeholder="Enter Name">
-          </div>
+          
+          <div class="row col-12">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="">Shop Name</label>
+                <input type="text" class="form-control" id="shopname" name="shopname" placeholder="Enter Shop Name">
+              </div>
 
-          <div class="form-group">
-            <label for="">SKU Code</label>
-            <input type="text" class="form-control" id="sku_code" name="sku_code" placeholder="SKU Code">
-          </div>
+              <div class="form-group">
+                <label for="">Retailer Code</label>
+                <input type="text" class="form-control" id="code" name="code" placeholder="Enter Retailer Code">
+              </div>
 
-          <div class="form-group">
-            <label for="">SKU Description</label>
-            <textarea name="sku_desc" class="form-control"></textarea>
-          </div>
+              <div class="form-group">
+                <label for="">Town</label>
+                <select name="town_id" class="form-control">
+                  <option value="">Select</option>
+                  @foreach($towns as $k => $v)
+                    <option value="{{$v->id}}">{{$v->name}}</option>
+                  @endforeach
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label for="">Unit Price</label>
-            <input type="text" class="form-control" id="unitprice" name="unitprice" placeholder="Example: 10.90">
-          </div>
+              <div class="form-group">
+                <label for="">Owner Name</label>
+                <input type="text" class="form-control" id="ownername" name="ownername" placeholder="Owner Name">
+              </div>
+
+              <div class="form-group">
+                <label for="">Registered Mobile Number (RMN)</label>
+                <input type="text" name="rmn" class="form-control" placeholder="01890100100">
+              </div>
+            </div>
+
+
+            <div class="col-6">
+              <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="">HQ</label>
+                <input type="text" class="form-control" id="hq" name="hq" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="">DSH</label>
+                <input type="text" class="form-control" id="dsh" name="dsh" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="">RH</label>
+                <input type="text" class="form-control" id="rh" name="rh" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="">Scheme</label>
+                <input type="text" class="form-control" id="scheme" name="scheme" placeholder="">
+              </div>
+            </div>
+          </div>       
 
         </div>
         <!-- /.card-body -->
@@ -122,7 +167,7 @@
 
 
 <div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class='modal-header'>
           <button type='button' class='close' data-dismiss='modal'>&times;</button>

@@ -52,7 +52,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" @if($route == 'products.index') class="nav-link active" @else class="nav-link" @endif>
+                <a href="{{route('products.index')}}" @if($route == 'products.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Products</p>
                 </a>
@@ -101,7 +101,7 @@
 
           <!-- Retailer Start-->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{route('retailers.index')}}" @if($route == 'retailers.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-people-carry"></i>
               <p>
                 Retailers

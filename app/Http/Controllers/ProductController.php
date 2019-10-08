@@ -19,7 +19,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::where(['deleted' => '0'])->orderBy('name', 'ASC')->get();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -40,7 +41,44 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:64',
+            'sku_code' => 'required|max:64',
+            'sku_desc' => 'required|max:128',
+            'unitprice' => 'required|numeric|max:9999999.99',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            Product::create(
+                [
+                    'name' => $request->name,
+                    'sku_code' => $request->sku_code,
+                    'sku_desc' => $request->sku_desc,
+                    'unitprice' => $request->unitprice,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'createdbyuserid' => Auth::user()->id,
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'Product Created Successfully!']);
+   
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          return response()->json(['error'=>array('Could not add product!')]);
+
+        }
     }
 
     /**
@@ -51,7 +89,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $prod = Product::where(['id' => $id])->first();
+        return view('products.show', compact('prod'));
     }
 
     /**
@@ -62,7 +101,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $prod = Product::where(['id' => $id])->first();
+        return view('products.edit', compact('prod'));
     }
 
     /**
@@ -74,7 +114,44 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:64',
+            'sku_code' => 'required|max:64',
+            'sku_desc' => 'required|max:128',
+            'unitprice' => 'required|numeric|max:9999999.99',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            Product::where(['id' => $id])->update(
+                [
+                    'name' => $request->name,
+                    'sku_code' => $request->sku_code,
+                    'sku_desc' => $request->sku_desc,
+                    'unitprice' => $request->unitprice,
+                    'active' => $request->active,
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'Product Updated Successfully!']);
+   
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          
+          return response()->json(['error'=>array('Could not update product!')]);
+
+        }
     }
 
     /**
@@ -136,23 +213,35 @@ class ProductController extends Controller
             return view('products.import', compact('report_error'));
         }
 
-        foreach ($rows as $row) {
-            
-            Product::create([
-                'name' => $row[0],
-                'sku_code' => $row[1],
-                'sku_desc' => $row[2],
-                'unitprice' => $row[3],
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'createdbyuserid' => Auth::user()->id,
-                'updatedbyuserid' => Auth::user()->id,
-            ]);
-            
-        }
+        DB::beginTransaction();
 
-        Session::flash('success', 'Data imported successfully!'); 
-        return redirect()->back();
+        try {
+
+            foreach ($rows as $row) {
+                
+                Product::create([
+                    'name' => $row[0],
+                    'sku_code' => $row[1],
+                    'sku_desc' => $row[2],
+                    'unitprice' => $row[3],
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'createdbyuserid' => Auth::user()->id,
+                    'updatedbyuserid' => Auth::user()->id,
+                ]);
+                
+            }
+
+            DB::commit();
+
+            Session::flash('success', 'Data imported successfully!'); 
+            return redirect()->back();
+            
+        } catch (Exception $e) {
+            DB::rollback();
+            Session::flash('error', 'File could not be uploaded. Please check for duplicates.');
+            return redirect()->back();
+        }
         
     }
 
