@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    'towns' => 'TownController',
 	    'products' => 'ProductController',
 	    'retailers' => 'RetailerController',
+	    'sales' => 'SalesController',
 	]);
 
 	Route::get('/districts/import/from-csv',[
@@ -36,7 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
 	);
 	Route::post('/districts/import/from-csv','DistrictController@handleImport')->name('districts.handleimport');
 
+	Route::get('/retailers/getinfo/{code}', 'RetailerController@getinfo')->name('retailers.getinfo');
 
 	Route::get('/products/import/from-csv','ProductController@import')->name('products.import');
 	Route::post('/products/import/from-csv','ProductController@handleimport')->name('products.handleimport');
+
 });

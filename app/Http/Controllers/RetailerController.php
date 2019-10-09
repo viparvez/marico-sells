@@ -44,7 +44,7 @@ class RetailerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'shopname' => 'required|max:128',
-            'code' => 'required|max:64',
+            'code' => 'required|max:64|unique',
             'ownername' => 'required|max:128',
             'town_id' => 'required',
             'rmn' => 'required|numeric|digits_between:1,20',
@@ -102,7 +102,8 @@ class RetailerController extends Controller
      */
     public function show($id)
     {
-        //
+        $ret = Retailer::where(['id' => $id])->first();
+        return view('retailers.show', compact('ret'));
     }
 
     /**
@@ -113,7 +114,11 @@ class RetailerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ret = Retailer::where(['id' => $id])->first();
+        $towns = Town::where(['deleted' => '0', 'active' => '1'])
+                ->whereNotIn('id', [$ret->town_id])->orderBy('name', 'ASC')->get();
+
+        return view('retailers.edit', compact('towns','ret'));
     }
 
     /**
@@ -125,7 +130,55 @@ class RetailerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'shopname' => 'required|max:128',
+            'code' => 'required|max:64|unique:retailers,code,'.$id,
+            'ownername' => 'required|max:128',
+            'town_id' => 'required',
+            'rmn' => 'required|numeric|digits_between:1,20',
+            'email' => 'required|email|max:128',
+            'hq' => 'required|max:64',
+            'dsh' => 'required|max:64',
+            'rh' => 'required|max:64',
+            'scheme' => 'required|max:128',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            Retailer::where(['id' => $id])->update(
+                [
+                    'shopname' => $request->shopname,
+                    'code' => $request->code,
+                    'ownername' => $request->ownername,
+                    'town_id' => $request->town_id,
+                    'rmn' => $request->rmn,
+                    'email' => $request->email,
+                    'hq' => $request->hq,
+                    'dsh' => $request->dsh,
+                    'rh' => $request->rh,
+                    'scheme' => $request->scheme,
+                    'active' => $request->active,
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'Retailer Updated Successfully!']);
+        
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          return response()->json(['error'=>array('Could not update retailer!')]);
+
+        }
     }
 
     /**
@@ -137,5 +190,36 @@ class RetailerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getinfo($code){
+        $retailer = Retailer::where(['code' => $code])->first();
+
+        if (count($retailer) > 0) {
+            return [
+                'retailer_id' => $retailer->id,
+                'shopname' => $retailer->shopname,
+                'rmn' => $retailer->rmn,
+                'hq' => $retailer->hq,
+                'dsh' => $retailer->dsh,
+                'rh' => $retailer->rh,
+                'scheme' => $retailer->scheme,
+                'district' => $retailer->Town->District->name,
+                'town' => $retailer->Town->name
+            ];
+        } else {
+            return [
+                'retailer_id' => null,
+                'shopname' => null,
+                'rmn' => null,
+                'hq' => null,
+                'dsh' => null,
+                'rh' => null,
+                'scheme' => null,
+                'district' => null,
+                'town' => null
+            ];
+        }
+        
     }
 }

@@ -16,8 +16,8 @@
           </li>
 
           <!-- Sales Start -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li @if($route == 'sales.index' || $route == 'sales.create') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'sales.index' || $route == 'sales.create') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Sales
@@ -26,13 +26,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" @if($route == 'sales.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Sales</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('sales.create')}}" @if($route == 'sales.create') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>New Sales</p>
                 </a>
