@@ -38,6 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/districts/import/from-csv','DistrictController@handleImport')->name('districts.handleimport');
 
 	Route::get('/retailers/getinfo/{code}', 'RetailerController@getinfo')->name('retailers.getinfo');
+	Route::get('/sales/orderdetails/add', 'SalesController@addorderdetails')->name('sales.addorderdetails');
+
+	Route::get('/sales/getprice/{id}', 'SalesController@getprice')->name('sales.getprice');
 
 	Route::get('/products/import/from-csv','ProductController@import')->name('products.import');
 	Route::post('/products/import/from-csv','ProductController@handleimport')->name('products.handleimport');

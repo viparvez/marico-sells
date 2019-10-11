@@ -9,13 +9,10 @@
         <div class="col-10">
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item">Product Management</li>
-            <li class="breadcrumb-item active">Products</li>
+            <li class="breadcrumb-item">Sales</li>
+            <li class="breadcrumb-item active">List</li>
           </ol>
         </div>
-        <div class="col-2">
-          <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
-        </div> 
 
         <div class="col-12">
           <div class="card">
@@ -25,33 +22,25 @@
                 <thead>
                 <tr>
                   <th>#SL</th>
-                  <th>Shop Name</th>
+                  <th>Order Code</th>
+                  <th>Retailer</th>
                   <th>Retailer Code</th>
-                  <th>Town</th>
-                  <th>RMN</th>
-                  <th>Email</th>
-                  <th>Status</th>
+                  <th>Order Date</th>
+                  <th>Made By</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($retailers as $k => $v)
+                @foreach($orders as $k => $v)
                   <tr>
                     <td>{{$k+1}}</td>
-                    <td>{{$v->shopname}}</td>
                     <td>{{$v->code}}</td>
-                    <td>{{$v->Town->name}}</td>
-                    <td>{{$v->rmn}}</td>
-                    <td>{{$v->email}}</td>
+                    <td>{{$v->Retailer->shopname}}</td>
+                    <td>{{$v->Retailer->code}}</td>
+                    <td>{{$v->created_at}}</td>
+                    <td>{{$v->CreatedBy->name}}</td>
                     <td>
-                      @if($v->active == '1')
-                        <span class="btn btn-xs btn-success">ACTIVE</span>
-                      @else
-                        <span class="btn btn-xs btn-danger">INACTIVE</span>
-                      @endif
-                    </td>
-                    <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('retailers.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-success" onclick="show('{{route('sales.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
                     </td>
                   </tr>
                 @endforeach
@@ -69,112 +58,14 @@
   </div>
   <!-- /.content-wrapper -->
 
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add New Retailer</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="alert alert-danger print-error-msg" style="display:none">
-          <ul></ul>
-      </div>
-
-      <form role="form" action="{{route('retailers.store')}}" id="create" method="POST">
-        <div class="card-body">
-          {{csrf_field()}}
-          
-          <div class="row col-12">
-            <div class="col-6">
-              <div class="form-group">
-                <label for="">Shop Name</label>
-                <input type="text" class="form-control" id="shopname" name="shopname" placeholder="Enter Shop Name">
-              </div>
-
-              <div class="form-group">
-                <label for="">Retailer Code</label>
-                <input type="text" class="form-control" id="code" name="code" placeholder="Enter Retailer Code">
-              </div>
-
-              <div class="form-group">
-                <label for="">Town</label>
-                <select name="town_id" class="form-control">
-                  <option value="">Select</option>
-                  @foreach($towns as $k => $v)
-                    <option value="{{$v->id}}">{{$v->name}}</option>
-                  @endforeach
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="">Owner Name</label>
-                <input type="text" class="form-control" id="ownername" name="ownername" placeholder="Owner Name">
-              </div>
-
-              <div class="form-group">
-                <label for="">Registered Mobile Number (RMN)</label>
-                <input type="text" name="rmn" class="form-control" placeholder="01890100100">
-              </div>
-            </div>
-
-
-            <div class="col-6">
-              <div class="form-group">
-                <label for="">Email</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com">
-              </div>
-
-              <div class="form-group">
-                <label for="">HQ</label>
-                <input type="text" class="form-control" id="hq" name="hq" placeholder="">
-              </div>
-
-              <div class="form-group">
-                <label for="">DSH</label>
-                <input type="text" class="form-control" id="dsh" name="dsh" placeholder="">
-              </div>
-
-              <div class="form-group">
-                <label for="">RH</label>
-                <input type="text" class="form-control" id="rh" name="rh" placeholder="">
-              </div>
-
-              <div class="form-group">
-                <label for="">Scheme</label>
-                <input type="text" class="form-control" id="scheme" name="scheme" placeholder="">
-              </div>
-            </div>
-          </div>       
-
-        </div>
-        <!-- /.card-body -->
-
-        <div class="card-footer">
-          <button class='btn btn-block btn-success btn-sm' id='submit' type='submit'>SAVE</button>
-          <button class='btn btn-block btn-success btn-sm' id='loading' style='display: none' disabled=''>Working...</button>
-        </div>
-      </form>
-
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
 
 <div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class='modal-header'>
           <button type='button' class='close' data-dismiss='modal'>&times;</button>
         </div>
-        <div class='alert alert-danger print-error-msg' id='error_messages' style='display:none'>
-          <ul></ul>
-        </div>
+
         <div class="text-center">
           <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
         </div>

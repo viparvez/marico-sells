@@ -44,7 +44,7 @@ class RetailerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'shopname' => 'required|max:128',
-            'code' => 'required|max:64|unique',
+            'code' => 'required|max:64|unique:retailers',
             'ownername' => 'required|max:128',
             'town_id' => 'required',
             'rmn' => 'required|numeric|digits_between:1,20',
@@ -194,8 +194,8 @@ class RetailerController extends Controller
 
     public function getinfo($code){
         $retailer = Retailer::where(['code' => $code])->first();
-
-        if (count($retailer) > 0) {
+        
+        if (!empty($retailer)) {
             return [
                 'retailer_id' => $retailer->id,
                 'shopname' => $retailer->shopname,
@@ -220,6 +220,7 @@ class RetailerController extends Controller
                 'town' => null
             ];
         }
+        
         
     }
 }

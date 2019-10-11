@@ -122,8 +122,6 @@ $(document).ready(function() {
           }
         });
 
-        //var _data = $("#create").serialize();
-
         var _data = new FormData($('#create')[0]);
 
           $.ajax({
