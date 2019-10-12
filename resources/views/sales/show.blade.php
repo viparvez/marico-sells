@@ -1,65 +1,110 @@
-<div class='box box-primary' style='font-weight:bold'>
-	<div class='box-body box-profile'>
-	  <table class='table table-striped details-view'>
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Retailer Code</b></td> 
-	      <td>{{$ret->code}}</td>
-	      <td style="text-align: left; color: #000080"><b>HQ</b></td>
-	      <td>{{$ret->hq}}</td>
-	    </tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Shop Name</b></td>
-	      <td>{{$ret->shopname}}</td>
-	      <td style="text-align: left; color: #000080"><b>DSH</b></td>
-	      <td>{{$ret->dsh}}</td>
-	    </tr>
+<style type="text/css">
+	.cell{
+		background: #E8E8E8;
+		font-weight: bold;
+	}
+</style>
+<div class="col-12 row" style="padding: 15px">
+	<h3><i>ORDER ID#  <span style="text-decoration: underline; color: blue">{{$sale->code}}<br></span></i></h3>
+	<table class="table">
+		<tbody>
+			<tr>
+				<td class="cell">Retailer Code</td>
+				<td>{{$sale->Retailer->code}}</td>
+				<td class="cell">Shop Name</td>
+				<td>{{$sale->Retailer->shopname}}</td>
+				<td class="cell">Scheme</td>
+				<td>{{$sale->Retailer->scheme}}</td>
+			</tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Town</b></td>
-	      <td>{{$ret->Town->name}}</td>
-	      <td style="text-align: left; color: #000080"><b>RH</b></td>
-	      <td>{{$ret->rh}}</td>
-	    </tr>
+			<tr>
+				<td class="cell">Phone Number</td>
+				<td>{{$sale->phone}}</td>
+				<td class="cell">RMN</td>
+				<td>{{$sale->Retailer->rmn}}</td>
+				<td class="cell">RH</td>
+				<td>{{$sale->Retailer->rh}}</td>
+			</tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Owner Name</b></td>
-	      <td>{{$ret->ownername}}</td>
-	      <td style="text-align: left; color: #000080"><b>Scheme</b></td>
-	      <td>{{$ret->scheme}}</td>
-	    </tr>
+			<tr>
+				<td class="cell">Name</td>
+				<td>{{$sale->name}}</td>
+				<td class="cell">HQ</td>
+				<td>{{$sale->Retailer->hq}}</td>
+				<td class="cell">Query</td>
+				<td>{{$sale->quest}}</td>
+			</tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Registered Mobile Number</b></td>
-	      <td>{{$ret->rmn}}</td>
-	    </tr>
+			<tr>
+				<td class="cell">District</td>
+				<td>{{$sale->Retailer->Town->District->name}}</td>
+				<td class="cell">Bazar</td>
+				<td>{{$sale->bazar}}</td>
+				<td class="cell">Request</td>
+				<td>{{$sale->req}}</td>
+				
+			</tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Email</b></td>
-	      <td>{{$ret->email}}</td>
-	    </tr>
+			<tr>
+				<td class="cell">Town</td>
+				<td>{{$sale->Retailer->Town->name}}</td>
+				<td class="cell">Location</td>
+				<td>{{$sale->location}}</td>
+				<td class="cell">Solution</td>
+				<td>{{$sale->solution}}</td>
+			</tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Active</b></td>
-	      <td>{{($ret->active == '1' ? 'YES' : 'NO')}}</td>
-	    </tr>
-	      
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Created By</b></td>
-	      <td>{{$ret->CreatedBy->name}}</td>
-	      <td style="text-align: left; color: #000080"><b>Created AT</b></td>
-	      <td>{{$ret->created_at}}</td>
-	    </tr>
+			<tr>
+				<td class="cell">Business Area</td>
+				<td>{{$sale->businessarea}}</td>
+				<td class="cell">DSH</td>
+				<td>{{$sale->Retailer->dsh}}</td>
+				<td class="cell">Call Type</td>
+				<td>{{$sale->calltype}}</td>
+			</tr>
 
-	    <tr>
-	      <td style="text-align: left; color: #000080"><b>Updated By</b></td>
-	      <td>{{$ret->UpdatedBy->name}}</td>
-	      <td style="text-align: left; color: #000080"><b>Updated At</b></td>
-	      <td>{{$ret->updated_at}}</td>
-	    </tr>
-	    
-	  </table>
 
-	  <a href='#' onclick="show('{{route('retailers.edit',$ret->id)}}','edit')" class='btn btn-primary btn-block'><b>EDIT</b></a>
-	</div>
+			<tr>
+				<table class="table table-bordered">
+					<thead style="background: #6699FF">
+						<th>#SL</th>
+						<th>Product</th>
+						<th>SKU Code</th>
+						<th>Rate</th>
+						<th>Quantity</th>
+						<th>Subtotal</th>
+					</thead>
+
+					<tbody>
+
+						@php
+							$total = 0;
+						@endphp
+
+						@foreach($sale->Orderdetail as $k => $v)
+							<tr>
+								<td>{{$k+1}}</td>
+								<td>{{$v->Product->name}}</td>
+								<td>{{$v->Product->sku_code}}</td>
+								<td>{{$v->unitprice}}</td>
+								<td>{{$v->qty}}</td>
+								<td>{{$v->subtotal}}</td>
+							</tr>
+							@php
+								$total = $total + $v->subtotal;
+							@endphp
+
+						@endforeach
+
+						<tr>
+							<td colspan="5" style="text-align: right; font-weight: bold;">TOTAL</td>
+							<td style="font-weight: bold;">{{$total}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</tr>
+		</tbody>
+	</table>
+	
 </div>

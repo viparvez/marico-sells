@@ -176,7 +176,9 @@ class SalesController extends Controller
      */
     public function show($id)
     {
-        //
+        $sale = Order::where(['id' => $id])->first();
+
+        return view('sales.show', compact('sale'));
     }
 
     /**
