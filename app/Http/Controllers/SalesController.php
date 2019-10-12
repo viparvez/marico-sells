@@ -23,7 +23,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $orders = Order::where(['deleted' => '0'])->get();
+        $orders = Order::where(['deleted' => '0'])->orderBy('created_at', 'DESC')->get();
 
         return view('sales.index', compact('orders'));
     }

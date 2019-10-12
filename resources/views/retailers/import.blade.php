@@ -18,11 +18,11 @@
           <div class="col-4">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Import Products</h3>
+                <h3 class="card-title">Import Retailers</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="{{route('products.handleimport')}}" enctype="multipart/form-data">
+              <form role="form" method="POST" action="{{route('retailers.handleimport')}}" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
@@ -43,24 +43,38 @@
             </div>
           </div>
 
-          <div class="col-8" style="background: white">
+          <div class="col-8"></div>
+          
+          <div class="col-12" style="background: white">
             @if(isset($report_error))
               <table class="table table-bordered">
                 <thead>
-                  <th>Name</th>
-                  <th>SKU Code</th>
-                  <th>Description</th>
-                  <th>Price</th>
+                  <th>Retailer Code</th>
+                  <th>Town</th>
+                  <th>Owner</th>
+                  <th>Shop</th>
+                  <th>RMN</th>
+                  <th>Email</th>
+                  <th>HQ</th>
+                  <th>DSH</th>
+                  <th>RH</th>
+                  <th>Scheme</th>
                   <th>Message</th>
                 </thead>
 
                 <tbody>
                   @foreach($report_error as $k => $v)
                     <tr>
-                      <td>{{$v['name']}}</td>
-                      <td>{{$v['sku_code']}}</td>
-                      <td>{{$v['sku_desc']}}</td>
-                      <td>{{$v['price']}}</td>
+                      <td>{{$v['code']}}</td>
+                      <td>{{$v['town_code']}}</td>
+                      <td>{{$v['ownername']}}</td>
+                      <td>{{$v['shopname']}}</td>
+                      <td>{{$v['rmn']}}</td>
+                      <td>{{$v['email']}}</td>
+                      <td>{{$v['hq']}}</td>
+                      <td>{{$v['dsh']}}</td>
+                      <td>{{$v['rh']}}</td>
+                      <td>{{$v['scheme']}}</td>
                       <td>{{$v['message']}}</td>
                     </tr>
                   @endforeach

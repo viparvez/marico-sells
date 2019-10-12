@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/test/{code}', 'HomeController@test')->name('test');
+
 	Route::resources([
 	    'districts' => 'DistrictController',
 	    'towns' => 'TownController',
@@ -44,5 +46,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::get('/products/import/from-csv','ProductController@import')->name('products.import');
 	Route::post('/products/import/from-csv','ProductController@handleimport')->name('products.handleimport');
+
+	Route::get('/retailers/import/from-csv','RetailerController@import')->name('retailers.import');
+	Route::post('/retailers/import/from-csv','RetailerController@handleimport')->name('retailers.handleimport');
 
 });
