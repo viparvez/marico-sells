@@ -43,27 +43,12 @@
 
           <!-- Products Start -->
           <li @if($route == 'products.index' || $route == 'products.import') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'products.index' || $route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
+            <a href="{{route('products.index')}}" @if($route == 'products.index' || $route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 Product Management
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('products.index')}}" @if($route == 'products.index') class="nav-link active" @else class="nav-link" @endif>
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Products</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('products.import')}}" @if($route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Bulk Creation</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <!-- Products End -->
 
@@ -87,12 +72,6 @@
                 <a href="{{route('towns.index')}}" @if($route == 'towns.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Towns</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('districts.import')}}" @if($route == 'districts.import') class="nav-link active" @else class="nav-link" @endif>
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Batch Upload</p>
                 </a>
               </li>
             </ul>

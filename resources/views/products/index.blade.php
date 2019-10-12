@@ -6,12 +6,15 @@
     <section class="content">
       <div class="row">
 
-        <div class="col-10">
+        <div class="col-8">
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item">Product Management</li>
             <li class="breadcrumb-item active">Products</li>
           </ol>
+        </div>
+        <div class="col-2">
+          <a class="btn btn-warning btn-block" href="{{route('products.import')}}">IMPORT FROM CSV</a>
         </div>
         <div class="col-2">
           <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
