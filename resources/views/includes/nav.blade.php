@@ -90,8 +90,8 @@
           <!-- Retailer End-->
          
          <!-- Communications Start -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li @if($route == 'email.create' || $route == 'email.edit') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'email.create' || $route == 'email.edit') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-envelope-square"></i>
               <p>
                 Communications
@@ -100,7 +100,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('email.create')}}" @if($route == 'email.create' || $route == 'email.edit') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>System Email Setting</p>
                 </a>

@@ -7,7 +7,7 @@
     <section class="content">
       <div class="row">
 
-        <div class="col-12">
+        <div class="col-12 row">
           @if(Session::has('success'))
           <p class="alert btn-block btn-success">{{ Session::get('success') }}</p>
           @elseif(Session::has('error'))
@@ -16,11 +16,11 @@
           <div class="col-4">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Import Districts</h3>
+                <h3 class="card-title">Import Town</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('districts.handleimport')}}" method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{route('towns.handleimport')}}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
@@ -45,6 +45,7 @@
             @if(isset($report_error))
               <table class="table table-bordered">
                 <thead>
+                  <th>District Code</th>
                   <th>Name</th>
                   <th>Message</th>
                 </thead>
@@ -52,6 +53,7 @@
                 <tbody>
                   @foreach($report_error as $k => $v)
                     <tr>
+                      <td>{{$v['code']}}</td>
                       <td>{{$v['name']}}</td>
                       <td>{{$v['message']}}</td>
                     </tr>

@@ -7,13 +7,16 @@
     <section class="content">
       <div class="row">
 
-        <div class="col-10">
+        <div class="col-8">
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item">Location Management</li>
             <li class="breadcrumb-item active">Town</li>
           </ol>
         </div>
+        <div class="col-2">
+          <a class="btn btn-block btn-warning btn-flat" href="{{route('towns.import')}}">IMPORT FROM CSV</a> <br>
+        </div> 
         <div class="col-2">
           <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
         </div> 

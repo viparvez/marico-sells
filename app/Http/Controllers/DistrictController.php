@@ -200,10 +200,11 @@ class DistrictController extends Controller
 
             foreach ($checkData as $key => $value) {
                 $report_error[$key]['name'] = $value['0'];
+                $report_error[$key]['message'] = $value['message'];
             }
             
             Session::flash('error', 'File could not be uploaded. Please check for errors.');
-            return view('districts.import', compact('report_error'));
+            return view('location.districts.import', compact('report_error'));
         }
 
         DB::beginTransaction();

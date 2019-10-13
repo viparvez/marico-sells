@@ -1,0 +1,148 @@
+
+@extends('layouts.app')
+@section('content')
+
+<style type="text/css">
+  .error {
+    color: red;
+  }
+</style>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <br>
+    <section class="content">
+      <div class="row">
+
+        <div class="col-12">
+          <ol class="breadcrumb float-sm-left">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item">Communications</li>
+            <li class="breadcrumb-item active">System Email Setting</li>
+          </ol>
+        </div>
+
+        <div class="row col-12" style="background: white; padding-left: 10%; padding-top: 20px; padding-bottom: 20px">
+          @if(Session::has('success'))
+          <p class="alert btn-block btn-success">{{ Session::get('success') }}</p>
+          @elseif(Session::has('error'))
+          <p class="alert btn-block btn-danger">{{ Session::get('error') }}</p>
+          @endif
+        <form class="form" method="POST" action="{{route('email.update', $email->id)}}">
+          <input type="hidden" name="_method" value="put">
+          <div class="col-2">
+            
+          </div>
+
+          <div class="col-8">
+
+            {{csrf_field()}}
+
+            <div class="form-group">
+              <label for="districtName">Email Address</label><code>(*)</code>
+              <input type="text" class="form-control" name="email" placeholder="example@example.com" value="{{$email->email}}">
+              @if ($errors->has('email'))
+                  <div class="error">{{ $errors->first('email') }}</div>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="districtName">Password</label><code>(*)</code>
+              <input type="password" class="form-control" name="password" placeholder="" value="{{$email->password}}">
+              @if ($errors->has('password'))
+                  <div class="error">{{ $errors->first('password') }}</div>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="districtName">Email ALIAS</label><code>(*)</code>
+              <input type="text" class="form-control" name="alias" placeholder="SuperTel Limited" value="{{$email->alias}}">
+              @if ($errors->has('alias'))
+                  <div class="error">{{ $errors->first('alias') }}</div>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="districtName">Outgoing Server</label><code>(*)</code>
+              <input type="text" class="form-control" name="outgoing_server" placeholder="smtp.gmail.com" value="{{$email->outgoing_server}}">
+              @if ($errors->has('outgoing_server'))
+                  <div class="error">{{ $errors->first('outgoing_server') }}</div>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="">Outgoing Protocol</label><code>(*)</code>
+              <select class="form-control" name="outgoing_protocol">
+                <option value="ssl" @if($email->outgoing_protocol == 'ssl') selected @endif >SMTPS</option>
+                <option value="tls" @if($email->outgoing_protocol == 'tls') selected @endif>TLS</option>
+              </select>
+
+              @if ($errors->has('outgoing_protocol'))
+                  <div class="error">{{ $errors->first('outgoing_protocol') }}</div>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="districtName">Outgoing Port</label><code>(*)</code>
+              <input type="text" class="form-control" name="outgoing_port" placeholder="465" value="{{$email->outgoing_port}}">
+              @if ($errors->has('outgoing_port'))
+                  <div class="error">{{ $errors->first('outgoing_port') }}</div>
+              @endif
+            </div>
+
+            <div class="">
+              <label>For Gsuit email addresses, please check that access for Less Secured Apps is <code>Turned On</code></label>
+              <button type="submit" class='btn btn-block btn-success btn-sm' type='submit'>SAVE</button>
+            </div>
+
+          </div>
+
+        </form>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+@endsection
+
+@section('footer-resource')
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE -->
+<script src="{{asset('dist/js/adminlte.js')}}"></script>
+
+<!-- DataTables -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+
+<script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
+
+<script src="{{asset('js/marico.js')}}"></script>
+
+<!-- Page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable();
+  });
+</script>
+
+</body>
+</html>
+
+@endsection
+

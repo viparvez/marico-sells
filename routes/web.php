@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    'products' => 'ProductController',
 	    'retailers' => 'RetailerController',
 	    'sales' => 'SalesController',
+	    'users' => 'UserController'
 	]);
 
 	Route::get('/districts/import/from-csv',[
@@ -50,7 +51,17 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/disctricts/import/from-csv','DistrictController@import')->name('disctricts.import');
 	Route::post('/disctricts/import/from-csv','DistrictController@handleimport')->name('disctricts.handleimport');
 
+	Route::get('/towns/import/from-csv','TownController@import')->name('towns.import');
+	Route::post('/towns/import/from-csv','TownController@handleimport')->name('towns.handleimport');
+
 	Route::get('/retailers/import/from-csv','RetailerController@import')->name('retailers.import');
 	Route::post('/retailers/import/from-csv','RetailerController@handleimport')->name('retailers.handleimport');
 
+	Route::get('/communications/email/create','EmailController@create')->name('email.create');
+	Route::get('/communications/email/edit/{id}','EmailController@edit')->name('email.edit');
+	Route::post('/communications/email/','EmailController@store')->name('email.store');
+	Route::put('/communications/email/update/{id}','EmailController@update')->name('email.update');
+
 });
+
+Route::get('/email/test','EmailController@test')->name('email.test');
