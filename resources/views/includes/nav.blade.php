@@ -90,8 +90,8 @@
           <!-- Retailer End-->
          
          <!-- Communications Start -->
-          <li @if($route == 'email.create' || $route == 'email.edit') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'email.create' || $route == 'email.edit') class="nav-link active" @else class="nav-link" @endif>
+          <li @if($route == 'email.create' || $route == 'email.edit' || $route == 'ftp.create' || $route == 'ftp.edit') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'email.create' || $route == 'email.edit' | $route == 'ftp.create' || $route == 'ftp.edit') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-envelope-square"></i>
               <p>
                 Communications
@@ -106,7 +106,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('ftp.create')}}" @if($route == 'ftp.create' || $route == 'ftp.edit') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>FTP Settings</p>
                 </a>

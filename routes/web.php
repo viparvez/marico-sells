@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    'products' => 'ProductController',
 	    'retailers' => 'RetailerController',
 	    'sales' => 'SalesController',
-	    'users' => 'UserController'
+	    'users' => 'UserController',
 	]);
 
 	Route::get('/districts/import/from-csv',[
@@ -62,6 +62,17 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/communications/email/','EmailController@store')->name('email.store');
 	Route::put('/communications/email/update/{id}','EmailController@update')->name('email.update');
 
+
+	Route::get('/communications/ftp/create','FtpController@create')->name('ftp.create');
+	Route::get('/communications/ftp/edit/{id}','FtpController@edit')->name('ftp.edit');
+	Route::post('/communications/ftp/','FtpController@store')->name('ftp.store');
+	Route::put('/communications/ftp/update/{id}','FtpController@update')->name('ftp.update');
+
 });
 
+
 Route::get('/email/test','EmailController@test')->name('email.test');
+Route::get('/ftp/test','FtpController@test')->name('ftp.test');
+
+
+
