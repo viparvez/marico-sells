@@ -15,7 +15,7 @@
 				<td class="cell">Shop Name</td>
 				<td>{{$sale->Retailer->shopname}}</td>
 				<td class="cell">Scheme</td>
-				<td>{{$sale->Retailer->scheme}}</td>
+				<td>{{$sale->Retailer->Distributor->scheme}}</td>
 			</tr>
 
 			<tr>
@@ -24,21 +24,21 @@
 				<td class="cell">RMN</td>
 				<td>{{$sale->Retailer->rmn}}</td>
 				<td class="cell">RH</td>
-				<td>{{$sale->Retailer->rh}}</td>
+				<td>{{$sale->Retailer->Distributor->rh}}</td>
 			</tr>
 
 			<tr>
 				<td class="cell">Name</td>
 				<td>{{$sale->name}}</td>
 				<td class="cell">HQ</td>
-				<td>{{$sale->Retailer->hq}}</td>
+				<td>{{$sale->Retailer->Distributor->hq}}</td>
 				<td class="cell">Query</td>
 				<td>{{$sale->quest}}</td>
 			</tr>
 
 			<tr>
 				<td class="cell">District</td>
-				<td>{{$sale->Retailer->Town->District->name}}</td>
+				<td>{{$sale->Retailer->Distributor->Town->District->name}}</td>
 				<td class="cell">Bazar</td>
 				<td>{{$sale->bazar}}</td>
 				<td class="cell">Request</td>
@@ -48,7 +48,7 @@
 
 			<tr>
 				<td class="cell">Town</td>
-				<td>{{$sale->Retailer->Town->name}}</td>
+				<td>{{$sale->Retailer->Distributor->Town->name}}</td>
 				<td class="cell">Location</td>
 				<td>{{$sale->location}}</td>
 				<td class="cell">Solution</td>
@@ -59,7 +59,7 @@
 				<td class="cell">Business Area</td>
 				<td>{{$sale->businessarea}}</td>
 				<td class="cell">DSH</td>
-				<td>{{$sale->Retailer->dsh}}</td>
+				<td>{{$sale->Retailer->Distributor->dsh}}</td>
 				<td class="cell">Call Type</td>
 				<td>{{$sale->calltype}}</td>
 			</tr>

@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    'districts' => 'DistrictController',
 	    'towns' => 'TownController',
 	    'products' => 'ProductController',
+	    'distributors' => 'DistributorController',
 	    'retailers' => 'RetailerController',
 	    'sales' => 'SalesController',
 	    'users' => 'UserController',
@@ -56,6 +57,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::get('/retailers/import/from-csv','RetailerController@import')->name('retailers.import');
 	Route::post('/retailers/import/from-csv','RetailerController@handleimport')->name('retailers.handleimport');
+
+	Route::get('/distributors/import/from-csv','DistributorController@import')->name('distributors.import');
+	Route::post('/distributors/import/from-csv','DistributorController@handleimport')->name('distributors.handleimport');
 
 	Route::get('/communications/email/create','EmailController@create')->name('email.create');
 	Route::get('/communications/email/edit/{id}','EmailController@edit')->name('email.edit');

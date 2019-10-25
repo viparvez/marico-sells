@@ -7,12 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
 use App\Distributor;
-use App\Retailer;
 use App\Town;
 use Session;
-use App\Services\Retailer\Retailerimport;
+use App\Services\Distributor\Distributorimport;
 
-class RetailerController extends Controller
+class DistributorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +20,9 @@ class RetailerController extends Controller
      */
     public function index()
     {
-        $retailers = Retailer::where(['deleted' => '0'])->orderBy('shopname', 'ASC')->get();
         $distributors = Distributor::where(['deleted' => '0'])->orderBy('distributorname', 'ASC')->get();
-        return view('retailers.index', compact('retailers', 'distributors'));
+        $towns = Town::where(['deleted' => '0'])->orderBy('name', 'ASC')->get();
+        return view('distributors.index', compact('distributors', 'towns'));
     }
 
     /**
@@ -45,12 +44,16 @@ class RetailerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'shopname' => 'required|max:128',
+            'distributorname' => 'required|max:128',
             'code' => 'required|max:64|unique:retailers',
             'ownername' => 'required|max:128',
-            'distributor_id' => 'required',
+            'town_id' => 'required',
             'rmn' => 'required|numeric|digits_between:1,20',
             'email' => 'required|email|max:128',
+            'hq' => 'required|max:64',
+            'dsh' => 'required|max:64',
+            'rh' => 'required|max:64',
+            'scheme' => 'required|max:128',
         ]);
 
         if ($validator->fails()) {
@@ -61,14 +64,18 @@ class RetailerController extends Controller
 
         try {
 
-            Retailer::create(
+            Distributor::create(
                 [
-                    'shopname' => $request->shopname,
+                    'distributorname' => $request->distributorname,
                     'code' => $request->code,
                     'ownername' => $request->ownername,
-                    'distributor_id' => $request->distributor_id,
+                    'town_id' => $request->town_id,
                     'rmn' => $request->rmn,
                     'email' => $request->email,
+                    'hq' => $request->hq,
+                    'dsh' => $request->dsh,
+                    'rh' => $request->rh,
+                    'scheme' => $request->scheme,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                     'createdbyuserid' => Auth::user()->id,
@@ -78,12 +85,12 @@ class RetailerController extends Controller
 
             DB::commit();
 
-            return response()->json(['success'=>'Retailer Created Successfully!']);
+            return response()->json(['success'=>'Distributor Created Successfully!']);
    
         } catch (\Exception $e) {
 
           DB::rollback();
-          return response()->json(['error'=>array('Could not add retailer!')]);
+          return response()->json(['error'=>array('Could not add distributor!')]);
 
         }
     }
@@ -96,8 +103,8 @@ class RetailerController extends Controller
      */
     public function show($id)
     {
-        $ret = Retailer::where(['id' => $id])->first();
-        return view('retailers.show', compact('ret'));
+        $dist = Distributor::where(['id' => $id])->first();
+        return view('distributors.show', compact('dist'));
     }
 
     /**
@@ -108,11 +115,11 @@ class RetailerController extends Controller
      */
     public function edit($id)
     {
-        $ret = Retailer::where(['id' => $id])->first();
-        $distributors = Distributor::where(['deleted' => '0', 'active' => '1'])
-                ->whereNotIn('id', [$ret->Distributor->id])->orderBy('distributorname', 'ASC')->get();
+        $dist = Distributor::where(['id' => $id])->first();
+        $towns = Town::where(['deleted' => '0', 'active' => '1'])
+                ->whereNotIn('id', [$dist->town_id])->orderBy('name', 'ASC')->get();
 
-        return view('retailers.edit', compact('distributors','ret'));
+        return view('distributors.edit', compact('towns','dist'));
     }
 
     /**
@@ -125,12 +132,16 @@ class RetailerController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'shopname' => 'required|max:128',
+            'distributorname' => 'required|max:128',
             'code' => 'required|max:64|unique:retailers,code,'.$id,
             'ownername' => 'required|max:128',
-            'distributor_id' => 'required',
+            'town_id' => 'required',
             'rmn' => 'required|numeric|digits_between:1,20',
             'email' => 'required|email|max:128',
+            'hq' => 'required|max:64',
+            'dsh' => 'required|max:64',
+            'rh' => 'required|max:64',
+            'scheme' => 'required|max:128',
         ]);
 
         if ($validator->fails()) {
@@ -141,14 +152,18 @@ class RetailerController extends Controller
 
         try {
 
-            Retailer::where(['id' => $id])->update(
+            Distributor::where(['id' => $id])->update(
                 [
-                    'shopname' => $request->shopname,
+                    'distributorname' => $request->distributorname,
                     'code' => $request->code,
                     'ownername' => $request->ownername,
-                    'distributor_id' => $request->distributor_id,
+                    'town_id' => $request->town_id,
                     'rmn' => $request->rmn,
                     'email' => $request->email,
+                    'hq' => $request->hq,
+                    'dsh' => $request->dsh,
+                    'rh' => $request->rh,
+                    'scheme' => $request->scheme,
                     'active' => $request->active,
                     'updated_at' => date('Y-m-d H:i:s'),
                     'updatedbyuserid' => Auth::user()->id,
@@ -157,12 +172,12 @@ class RetailerController extends Controller
 
             DB::commit();
 
-            return response()->json(['success'=>'Retailer Updated Successfully!']);
+            return response()->json(['success'=>'Distributor Updated Successfully!']);
         
         } catch (\Exception $e) {
 
           DB::rollback();
-          return response()->json(['error'=>array('Could not update retailer!')]);
+          return response()->json(['error'=>array('Could not update distributor!')]);
 
         }
     }
@@ -178,36 +193,6 @@ class RetailerController extends Controller
         //
     }
 
-    public function getinfo($code){
-        $retailer = Retailer::where(['code' => $code])->first();
-        
-        if (!empty($retailer)) {
-            return [
-                'retailer_id' => $retailer->id,
-                'shopname' => $retailer->shopname,
-                'rmn' => $retailer->Distributor->rmn,
-                'hq' => $retailer->Distributor->hq,
-                'dsh' => $retailer->Distributor->dsh,
-                'rh' => $retailer->Distributor->rh,
-                'scheme' => $retailer->Distributor->scheme,
-                'district' => $retailer->Distributor->Town->District->name,
-                'town' => $retailer->Distributor->Town->name
-            ];
-        } else {
-            return [
-                'retailer_id' => null,
-                'shopname' => null,
-                'rmn' => null,
-                'hq' => null,
-                'dsh' => null,
-                'rh' => null,
-                'scheme' => null,
-                'district' => null,
-                'town' => null
-            ];
-        }
-        
-    }
 
 
     /**
@@ -217,7 +202,7 @@ class RetailerController extends Controller
      */
     public function import()
     {
-        return view('retailers.import');
+        return view('distributors.import');
     }
 
 
@@ -237,7 +222,7 @@ class RetailerController extends Controller
         $rows = array_map('str_getcsv', file($file, FILE_SKIP_EMPTY_LINES));
         $header = array_shift($rows);
         
-        $validation = new Retailerimport();
+        $validation = new Distributorimport();
 
         $checkData = $validation->checkImportData($rows);
 
@@ -249,7 +234,7 @@ class RetailerController extends Controller
                 $report_error[$key]['code'] = $value['0'];
                 $report_error[$key]['town_code'] = $value['1'];
                 $report_error[$key]['ownername'] = $value['2'];
-                $report_error[$key]['shopname'] = $value['3'];
+                $report_error[$key]['distributorname'] = $value['3'];
                 $report_error[$key]['rmn'] = $value['4'];
                 $report_error[$key]['email'] = $value['5'];
                 $report_error[$key]['hq'] = $value['6'];
@@ -260,7 +245,7 @@ class RetailerController extends Controller
             }
             
             Session::flash('error', 'File could not be uploaded. Please check for errors.');
-            return view('retailers.import', compact('report_error'));
+            return view('distributors.import', compact('report_error'));
         }
 
         DB::beginTransaction();
@@ -271,11 +256,11 @@ class RetailerController extends Controller
 
               $town_id = Town::where(['code' => $row[1]])->first();
                 
-                Retailer::create([
+                Distributor::create([
                     'code' => $row[0],
                     'town_id' => $town_id->id,
                     'ownername' => $row[2],
-                    'shopname' => $row[3],
+                    'distributorname' => $row[3],
                     'rmn' => $row[4],
                     'email' => $row[5],
                     'hq' => $row[6],
@@ -302,5 +287,4 @@ class RetailerController extends Controller
         }
         
     }
-
 }

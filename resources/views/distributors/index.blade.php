@@ -9,11 +9,11 @@
         <div class="col-8">
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Retailers</li>
+            <li class="breadcrumb-item active">Distributors</li>
           </ol>
         </div>
         <div class="col-2">
-          <a class="btn btn-block btn-success btn-warning" href="{{route('retailers.import')}}" >IMPORT FROM CSV</a>
+          <a class="btn btn-block btn-success btn-warning" href="{{route('distributors.import')}}" >IMPORT FROM CSV</a>
         </div> 
         <div class="col-2">
           <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
@@ -27,23 +27,22 @@
                 <thead>
                 <tr>
                   <th>#SL</th>
-                  <th>Retailer Name</th>
-                  <th>Retailer Code</th>
-                  <th>Distributor</th>
+                  <th>Registered Business Name</th>
+                  <th>Distributor Code</th>
                   <th>Town</th>
                   <th>RMN</th>
+                  <th>Email</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($retailers as $k => $v)
+                @foreach($distributors as $k => $v)
                   <tr>
                     <td>{{$k+1}}</td>
-                    <td>{{$v->shopname}}</td>
+                    <td>{{$v->distributorname}}</td>
                     <td>{{$v->code}}</td>
-                    <td>{{$v->Distributor->distributorname}}</td>
-                    <td>{{$v->Distributor->Town->name}}</td>
+                    <td>{{$v->Town->name}}</td>
                     <td>{{$v->rmn}}</td>
                     <td>{{$v->email}}</td>
                     <td>
@@ -54,7 +53,7 @@
                       @endif
                     </td>
                     <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('retailers.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-success" onclick="show('{{route('distributors.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
                     </td>
                   </tr>
                 @endforeach
@@ -76,7 +75,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Add New Retailer</h4>
+        <h4 class="modal-title">Add New Distributor</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -86,35 +85,32 @@
           <ul></ul>
       </div>
 
-      <form role="form" action="{{route('retailers.store')}}" id="create" method="POST">
+      <form role="form" action="{{route('distributors.store')}}" id="create" method="POST">
         <div class="card-body">
           {{csrf_field()}}
           
           <div class="row col-12">
             <div class="col-6">
               <div class="form-group">
-                <label for="">Shop Name</label>
-                <input type="text" class="form-control" id="shopname" name="shopname" placeholder="Shop Name">
+                <label for="">Registered Business Name</label>
+                <input type="text" class="form-control" id="distributorname" name="distributorname" placeholder="Enter Registered Name">
               </div>
 
               <div class="form-group">
-                <label for="">Retailer Code</label>
-                <input type="text" class="form-control" id="code" name="code" placeholder="Retailer Code">
+                <label for="">Distributor Code</label>
+                <input type="text" class="form-control" id="code" name="code" placeholder="Enter Distributor Code">
               </div>
 
               <div class="form-group">
-                <label for="">Distributor</label>
-                <select name="distributor_id" class="form-control">
+                <label for="">Town</label>
+                <select name="town_id" class="form-control">
                   <option value="">Select</option>
-                  @foreach($distributors as $k => $v)
-                    <option value="{{$v->id}}">{{$v->code}} - {{$v->distributorname}}</option>
+                  @foreach($towns as $k => $v)
+                    <option value="{{$v->id}}">{{$v->name}}</option>
                   @endforeach
                 </select>
               </div>
-            </div>
 
-
-            <div class="col-6">
               <div class="form-group">
                 <label for="">Owner Name</label>
                 <input type="text" class="form-control" id="ownername" name="ownername" placeholder="Owner Name">
@@ -124,9 +120,33 @@
                 <label for="">Registered Mobile Number (RMN)</label>
                 <input type="text" name="rmn" class="form-control" placeholder="01890100100">
               </div>
+            </div>
+
+
+            <div class="col-6">
               <div class="form-group">
                 <label for="">Email</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="">HQ</label>
+                <input type="text" class="form-control" id="hq" name="hq" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="">DSH</label>
+                <input type="text" class="form-control" id="dsh" name="dsh" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="">RH</label>
+                <input type="text" class="form-control" id="rh" name="rh" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="">Scheme</label>
+                <input type="text" class="form-control" id="scheme" name="scheme" placeholder="">
               </div>
             </div>
           </div>       

@@ -80,6 +80,17 @@
 
           <!-- Retailer Start-->
           <li class="nav-item has-treeview">
+            <a href="{{route('distributors.index')}}" @if($route == 'distributors.index') class="nav-link active" @else class="nav-link" @endif>
+              <i class="nav-icon fas fa-user-friends"></i>
+              <p>
+                Distributors
+              </p>
+            </a>
+          </li>
+          <!-- Retailer End-->
+
+          <!-- Retailer Start-->
+          <li class="nav-item has-treeview">
             <a href="{{route('retailers.index')}}" @if($route == 'retailers.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-people-carry"></i>
               <p>
