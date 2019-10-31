@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function CreatedBy() {
+        return $this->belongsTo('App\User', 'createdbyuserid');
+    }
+
+    public function UpdatedBy() {
+        return $this->belongsTo('App\User', 'updatedbyuserid');
+    }
 }

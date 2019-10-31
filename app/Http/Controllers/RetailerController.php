@@ -246,16 +246,13 @@ class RetailerController extends Controller
             $report_error = [];
 
             foreach ($checkData as $key => $value) {
-                $report_error[$key]['code'] = $value['0'];
-                $report_error[$key]['town_code'] = $value['1'];
-                $report_error[$key]['ownername'] = $value['2'];
-                $report_error[$key]['shopname'] = $value['3'];
+                $report_error[$key]['shopname'] = $value['0'];
+                $report_error[$key]['retailer_code'] = $value['1'];
+                $report_error[$key]['distributor_code'] = $value['2'];
+                $report_error[$key]['ownername'] = $value['3'];
                 $report_error[$key]['rmn'] = $value['4'];
                 $report_error[$key]['email'] = $value['5'];
-                $report_error[$key]['hq'] = $value['6'];
-                $report_error[$key]['dsh'] = $value['7'];
-                $report_error[$key]['rh'] = $value['8'];
-                $report_error[$key]['scheme'] = $value['9'];
+                $report_error[$key]['address'] = $value['6'];
                 $report_error[$key]['message'] = $value['message'];
             }
             
@@ -269,19 +266,16 @@ class RetailerController extends Controller
 
             foreach ($rows as $row) {
 
-              $town_id = Town::where(['code' => $row[1]])->first();
+              $distributor_id = Distributor::where(['code' => $row[2]])->first();
                 
                 Retailer::create([
-                    'code' => $row[0],
-                    'town_id' => $town_id->id,
-                    'ownername' => $row[2],
-                    'shopname' => $row[3],
+                    'shopname' => $row[0],
+                    'code' => $row[1],
+                    'distributor_id' => $distributor_id->id,
+                    'ownername' => $row[3],
                     'rmn' => $row[4],
                     'email' => $row[5],
-                    'hq' => $row[6],
-                    'dsh' => $row[7],
-                    'rh' => $row[8],
-                    'scheme' => $row[9],
+                    'address' => $row[6],
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                     'createdbyuserid' => Auth::user()->id,

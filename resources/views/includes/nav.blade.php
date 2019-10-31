@@ -125,7 +125,7 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Email Templates</p>
+                  <p>Email Recipients</p>
                 </a>
               </li>
             </ul>
@@ -145,7 +145,7 @@
 
           <!-- Users Start-->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{route('users.index')}}" @if($route == 'users.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users

@@ -3,6 +3,7 @@
 namespace App\Services\Retailer;
 use App\Retailer;
 use App\Town;
+use App\Distributor;
 
 /**
  * 
@@ -20,6 +21,15 @@ class Retailerimport
 
 			if (empty($row[0])) {
 
+				$row['message'] = 'Shopname required';
+				$this->errorRows[$key] = $row;
+				$this->valid = false;
+
+			} 
+
+
+			if (empty($row[1])) {
+
 				$row['message'] = 'Retailer code required';
 				$this->errorRows[$key] = $row;
 				$this->valid = false;
@@ -34,16 +44,16 @@ class Retailerimport
 			}
 
 			
-			if(empty($row[1])){
+			if(empty($row[2])){
 
-				$row['message'] = 'Town Code required';
+				$row['message'] = 'Distributor Code required';
 				$this->errorRows[$key] = $row;
 				$this->valid = false;
 
 			} else {
 
-				if ($this->checkTown($row[1]) === 'false') {
-					$row['message'] = 'Invalid Town Code';
+				if ($this->checkDist($row[2]) === 'false') {
+					$row['message'] = 'Invalid Distributor Code';
 					$this->errorRows[$key] = $row;
 					$this->valid = false;
 				}
@@ -51,18 +61,9 @@ class Retailerimport
 			}
 
 
-			if(empty($row[2])){
-
-				$row['message'] = 'Owner Name Required';
-				$this->errorRows[$key] = $row;
-				$this->valid = false;
-
-			} 
-
-
 			if(empty($row[3])){
 
-				$row['message'] = 'Shopname Required';
+				$row['message'] = 'Owner Name Required';
 				$this->errorRows[$key] = $row;
 				$this->valid = false;
 
@@ -78,44 +79,20 @@ class Retailerimport
 			} 
 
 
-			if(empty($row[5])){
+			if(!empty($row[5])){
 
-				$row['message'] = 'Email Required';
-				$this->errorRows[$key] = $row;
-				$this->valid = false;
+				if (!filter_var($row[5], FILTER_VALIDATE_EMAIL)) {
+				    $row['message'] = 'Invalid Email';
+				    $this->errorRows[$key] = $row;
+				    $this->valid = false;
+				} 
 
 			} 
 
 
 			if(empty($row[6])){
 
-				$row['message'] = 'HQ Required';
-				$this->errorRows[$key] = $row;
-				$this->valid = false;
-
-			} 
-
-			if(empty($row[7])){
-
-				$row['message'] = 'DSH Required';
-				$this->errorRows[$key] = $row;
-				$this->valid = false;
-
-			} 
-
-
-			if(empty($row[8])){
-
-				$row['message'] = 'RH Required';
-				$this->errorRows[$key] = $row;
-				$this->valid = false;
-
-			} 
-
-
-			if(empty($row[9])){
-
-				$row['message'] = 'Scheme Required';
+				$row['message'] = 'Address Required';
 				$this->errorRows[$key] = $row;
 				$this->valid = false;
 
@@ -149,8 +126,8 @@ class Retailerimport
 
 	//invalid town code
 
-	private function checkTown($code) {
-		$result = Town::where(['code' => $code, 'deleted' => '0'])->first();
+	private function checkDist($code) {
+		$result = Distributor::where(['code' => $code, 'deleted' => '0'])->first();
 
 		if (empty($result->code)) {
 		   return 'false';
