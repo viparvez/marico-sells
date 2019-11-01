@@ -8,7 +8,11 @@
       <div class="row">
 
         <div class="col-12">
-          
+          @if(Session::has('success'))
+          <p class="alert btn-block btn-success">{{ Session::get('success') }}</p>
+          @elseif(Session::has('error'))
+          <p class="alert btn-block btn-danger">{{ Session::get('error') }}</p>
+          @endif
           <div class="col-4">
             <div class="card card-primary">
               <div class="card-header">
@@ -16,7 +20,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" action="{{route('districts.handleimport')}}" method="POST" enctype="multipart/form-data">
+                {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputFile">Select CSV File</label>
@@ -36,8 +41,25 @@
             </div>
           </div>
 
-          <div class="col-8">
-            
+          <div class="col-8" style="background: white">
+            @if(isset($report_error))
+              <table class="table table-bordered">
+                <thead>
+                  <th>Name</th>
+                  <th>Message</th>
+                </thead>
+
+                <tbody>
+                  @foreach($report_error as $k => $v)
+                    <tr>
+                      <td>{{$v['name']}}</td>
+                      <td>{{$v['message']}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            @else
+            @endif
           </div>
 
         </div>

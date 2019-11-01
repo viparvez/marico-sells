@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Retailer;
+use App\Town;
 
 class HomeController extends Controller
 {
@@ -24,5 +26,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function test($code) {
+        $result = Town::where(['code' => $code])->first();
+
+        if (empty($result)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
     }
 }

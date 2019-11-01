@@ -7,13 +7,16 @@
     <section class="content">
       <div class="row">
 
-        <div class="col-10">
+        <div class="col-8">
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item">Location Management</li>
             <li class="breadcrumb-item active">Districts</li>
           </ol>
         </div>
+        <div class="col-2">
+          <a class="btn btn-block btn-warning btn-flat" href="{{route('districts.import')}}">IMPORT FROM CSV</a> <br>
+        </div> 
         <div class="col-2">
           <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
         </div> 
@@ -104,24 +107,26 @@
 
 
 <div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class='modal-header'>
-          <button type='button' class='close' data-dismiss='modal'>&times;</button>
-        </div>
-        <div class='alert alert-danger print-error-msg' id='error_messages' style='display:none'>
-          <ul></ul>
-        </div>
-        <div class="text-center">
-          <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+      </div>
+      <div class='alert alert-danger print-error-msg' id='error_messages' style='display:none'>
+        <ul></ul>
+      </div>
+      <div class="text-center">
+        <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
+      </div>
 
-        <div id="showcontent">
-          
+      <div id="showcontent">
+        <div class="alert alert-danger print-error-msg" style="display:none">
+            <ul></ul>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
 @endsection
@@ -138,7 +143,7 @@
 
 <!-- DataTables -->
 <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
-<script src="{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+<script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>

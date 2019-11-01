@@ -12,6 +12,10 @@ class Town extends Model
     	return $this->belongsTo('App\District', 'district_id');
     }
 
+    public function Retailer(){
+        return $this->hasMany('App\Retailer', 'town_id');
+    }
+
     public function CreatedBy() {
         return $this->belongsTo('App\User', 'createdbyuserid');
     }

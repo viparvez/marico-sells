@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
 Use App\District;
+use Session;
+use App\Services\District\Districtimport;
 
 class DistrictController extends Controller
 {
@@ -160,13 +162,90 @@ class DistrictController extends Controller
         //
     }
 
-    /**
-     * Display the import page 
+     /**
+     * Display a the CSV import form.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function import()
     {
         return view('location.districts.import');
+    }
+
+
+    public function handleimport(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:csv,txt',
+        ]);
+        
+        if ($validator->fails()) {
+            Session::flash('error', 'Please upload valid file!'); 
+            return redirect()->back();
+        }
+        
+        $file = $request->file('file');
+        $csvData = file_get_contents($file);
+        $rows = array_map('str_getcsv', file($file, FILE_SKIP_EMPTY_LINES));
+        $header = array_shift($rows);
+        
+        $validation = new Districtimport();
+
+        $checkData = $validation->checkImportData($rows);
+
+        if(count($checkData) > 0){
+
+            $report_error = [];
+
+            foreach ($checkData as $key => $value) {
+                $report_error[$key]['name'] = $value['0'];
+                $report_error[$key]['message'] = $value['message'];
+            }
+            
+            Session::flash('error', 'File could not be uploaded. Please check for errors.');
+            return view('location.districts.import', compact('report_error'));
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            foreach ($rows as $row) {
+                
+                $id = DB::table('districts')->insertGetId(
+                    [
+                        'code' => time(),
+                        'name' => $row[0],
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                        'createdbyuserid' => Auth::user()->id,
+                        'updatedbyuserid' => Auth::user()->id,
+                    ]
+                );
+                
+                $code = 'DIS'.sprintf('%06d', $id);
+
+                District::where(['id' => $id])->update(
+                  [
+                    'code' => $code,
+                  ]
+                );
+
+                DB::commit();
+                
+            }
+
+            DB::commit();
+
+            Session::flash('success', 'Data imported successfully!'); 
+            return redirect()->back();
+            
+        } catch (Exception $e) {
+            DB::rollback();
+            Session::flash('error', 'File could not be uploaded. Please check for duplicates.');
+            return redirect()->back();
+        }
+        
     }
 }

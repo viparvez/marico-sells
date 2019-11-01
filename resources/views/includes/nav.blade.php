@@ -16,8 +16,8 @@
           </li>
 
           <!-- Sales Start -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li @if($route == 'sales.index' || $route == 'sales.create') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'sales.index' || $route == 'sales.create') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Sales
@@ -26,13 +26,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('sales.index')}}" @if($route == 'sales.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Sales</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('sales.create')}}" @if($route == 'sales.create') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>New Sales</p>
                 </a>
@@ -43,27 +43,12 @@
 
           <!-- Products Start -->
           <li @if($route == 'products.index' || $route == 'products.import') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'products.index' || $route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
+            <a href="{{route('products.index')}}" @if($route == 'products.index' || $route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 Product Management
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" @if($route == 'products.index') class="nav-link active" @else class="nav-link" @endif>
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Products</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('products.import')}}" @if($route == 'products.import') class="nav-link active" @else class="nav-link" @endif>
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Bulk Creation</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <!-- Products End -->
 
@@ -89,19 +74,24 @@
                   <p>Towns</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('districts.import')}}" @if($route == 'districts.import') class="nav-link active" @else class="nav-link" @endif>
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Batch Upload</p>
-                </a>
-              </li>
             </ul>
           </li>
           <!-- Location End -->
 
           <!-- Retailer Start-->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{route('distributors.index')}}" @if($route == 'distributors.index') class="nav-link active" @else class="nav-link" @endif>
+              <i class="nav-icon fas fa-user-friends"></i>
+              <p>
+                Distributors
+              </p>
+            </a>
+          </li>
+          <!-- Retailer End-->
+
+          <!-- Retailer Start-->
+          <li class="nav-item has-treeview">
+            <a href="{{route('retailers.index')}}" @if($route == 'retailers.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-people-carry"></i>
               <p>
                 Retailers
@@ -111,8 +101,8 @@
           <!-- Retailer End-->
          
          <!-- Communications Start -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li @if($route == 'email.create' || $route == 'email.edit' || $route == 'ftp.create' || $route == 'ftp.edit') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'email.create' || $route == 'email.edit' | $route == 'ftp.create' || $route == 'ftp.edit') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-envelope-square"></i>
               <p>
                 Communications
@@ -121,13 +111,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('email.create')}}" @if($route == 'email.create' || $route == 'email.edit') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>System Email Setting</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('ftp.create')}}" @if($route == 'ftp.create' || $route == 'ftp.edit') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>FTP Settings</p>
                 </a>
@@ -135,7 +125,7 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Email Templates</p>
+                  <p>Email Recipients</p>
                 </a>
               </li>
             </ul>
@@ -155,7 +145,7 @@
 
           <!-- Users Start-->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{route('users.index')}}" @if($route == 'users.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
