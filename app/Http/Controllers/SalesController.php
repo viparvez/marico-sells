@@ -267,4 +267,9 @@ class SalesController extends Controller
         
     }
 
+
+    public function search() {
+      return view('sales.search');
+    }
+
 }

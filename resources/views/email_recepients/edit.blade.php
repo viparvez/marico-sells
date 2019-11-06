@@ -2,22 +2,22 @@
     <ul></ul>
 </div>
 
-<form role="form" action="{{route('districts.update', $district->id)}}" id="update" method="POST">
+<form role="form" action="{{route('recepients.update', $rec->id)}}" id="update" method="POST">
   <div class="card-body">
 
+    <input type="hidden" name="template_id" value="{{$templates->id}}">
     {{csrf_field()}}
-    <input type="hidden" name="_method" value="PUT">
-
     <div class="form-group">
-      <label for="districtName">District Name</label>
-      <input type="text" class="form-control" id="districtName" name="name" placeholder="Enter Name" value="{{$district->name}}">
+      <label for="address">Email Address</label><code>*</code>
+      <input type="email" class="form-control" id="address" name="address" placeholder="Enter Email" value="{{$rec->address}}">
     </div>
 
+
     <div class="form-group">
-      <label>Activate/Deactivate</label>
-      <select name="active" class="form-control">
-        <option value="1" @if($district->active == '1') selected @else @endif>Active</option>
-        <option value="0" @if($district->active == '0') selected @else @endif>Deactive</option>
+      <label>Type</label><code>*</code><br>
+      <select name="rectype" class="form-control">
+        <option value="PRIMARY" @if($rec->rectype == 'PRIMARY') selected @else @endif>PRIMARY</option>
+        <option value="CC" @if($rec->rectype == 'CC') selected @else @endif>CC</option>
       </select>
     </div>
 
