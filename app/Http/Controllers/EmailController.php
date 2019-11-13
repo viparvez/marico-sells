@@ -23,7 +23,7 @@ class EmailController extends Controller
 
 		$mail= new PHPMailer\PHPMailer();
 
-		$mail->SMTPDebug = 2;                              // Enable verbose debug output
+		$mail->SMTPDebug = 0;                              // Enable verbose debug output
 		$mail->isSMTP();                                      // Set mailer to use SMTP
 		$mail->Host = $email->outgoing_server;  // Specify main and backup SMTP servers
 		$mail->SMTPAuth = true;                               // Enable SMTP authentication

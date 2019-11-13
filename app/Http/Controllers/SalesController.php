@@ -12,7 +12,7 @@ use App\Product;
 use App\Order;
 use App\Orderdetail;
 use Session;
-
+use App\Http\Controllers\EmailController;
 
 class SalesController extends Controller
 {
@@ -105,6 +105,7 @@ class SalesController extends Controller
 
         }
 
+        $retailer = Retailer::where(['id' => $request->retailer_id])->first();
 
         DB::beginTransaction();
 
@@ -155,6 +156,12 @@ class SalesController extends Controller
             }
             
             DB::commit();
+
+            $sale = Order::where(['id' => $id])->first();
+
+            $body = view('sales.show', compact('sale'));
+            
+            (new EmailController)->sendmail([$retailer->Distributor->email], $body, null, 'New Sale Notification');
 
             return response()->json(['success'=> array('Order Placed Successfully')]);
         
