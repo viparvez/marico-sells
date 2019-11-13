@@ -9,27 +9,27 @@
     <input type="hidden" name="_method" value="PUT">
 
     <div class="form-group">
-      <label for="">Product Name</label>
+      <label for="">Product Name</label><code>*</code>
       <input type="text" class="form-control" id="productName" name="name" placeholder="Enter Name" value="{{$prod->name}}">
     </div>
 
     <div class="form-group">
-      <label for="">SKU Code</label>
+      <label for="">SKU Code</label><code>*</code>
       <input type="text" class="form-control" id="sku_code" name="sku_code" placeholder="SKU Code" value="{{$prod->sku_code}}">
     </div>
 
     <div class="form-group">
-      <label for="">SKU Description</label>
+      <label for="">SKU Description</label><code>*</code>
       <textarea name="sku_desc" class="form-control">{{$prod->sku_desc}}</textarea>
     </div>
 
     <div class="form-group">
-      <label for="">Unit Price</label>
+      <label for="">Unit Price</label><code>*</code>
       <input type="text" class="form-control" id="unitprice" name="unitprice" placeholder="Example: 10.90" value="{{$prod->unitprice}}">
     </div>
 
     <div class="form-group">
-      <label>Activate/Deactivate</label>
+      <label>Activate/Deactivate</label><code>*</code>
       <select name="active" class="form-control">
         <option value="1" @if($prod->active == '1') selected @else @endif>Active</option>
         <option value="0" @if($prod->active == '0') selected @else @endif>Deactive</option>

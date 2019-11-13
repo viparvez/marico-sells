@@ -24,13 +24,13 @@
 
               <div class="col-4">
                 <label>From</label>
-                <input class="form-control" type="date" name="from"f>
+                <input class="form-control" type="date" name="from" @if(!empty($from)) value="{{$from}}" @else @endif>
 
               </div>
 
               <div class="col-4">
                 <label>To</label>
-                <input class="form-control" type="date" name="to">
+                <input class="form-control" type="date" name="to" @if(!empty($to)) value="{{$to}}" @else @endif>
               </div>
 
               <div class="col-2">
@@ -43,6 +43,9 @@
 
             <!-- /.card-header -->
             <div class="card-body">
+
+              <a href="{{route('sales.download', [$from, $to])}}" class="btn btn-warning" download="sales-{{$from}}_{{$to}}.xls">DOWNLOAD</a>
+
               <table id="" class="table table-striped">
                 <thead>
                 <tr>

@@ -54,7 +54,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-          <a href="#" class="dropdown-item">
+          <a href="#" class="dropdown-item" onclick="show('{{route('users.getMyChangePass')}}')">
             <i class="fas fa-cog"></i> Change Password
           </a>
 

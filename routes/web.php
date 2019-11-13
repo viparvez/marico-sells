@@ -41,7 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
 		]
 	);
 
-	Route::get('/sales/search','SalesController@search')->name('sales.search');
+	Route::post('/sales/search','SalesController@search')->name('sales.search');
+	Route::get('/sales/search/{form}/{to}','SalesController@getsearch')->name('sales.getsearch');
+	Route::get('/sales/download/{form}/{to}','SalesController@download')->name('sales.download');
 
 	Route::post('/districts/import/from-csv','DistrictController@handleImport')->name('districts.handleimport');
 
@@ -78,6 +80,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::get('/users/{userid}/changepass', 'UserController@getChangePass')->name('users.getChangePass');
 	Route::put('/users/{userid}/changepass', 'UserController@changepass')->name('users.changepass');
+
+	Route::get('/changepass', 'UserController@getMyChangePass')->name('users.getMyChangePass');
+	Route::put('/changepass', 'UserController@mychangepass')->name('users.mychangepass');
 
 });
 

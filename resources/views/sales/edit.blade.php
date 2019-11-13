@@ -11,17 +11,17 @@
     <div class="row col-12">
             <div class="col-6">
               <div class="form-group">
-                <label for="">Shop Name</label>
+                <label for="">Shop Name</label><code>*</code>
                 <input type="text" class="form-control" id="shopname" name="shopname" placeholder="Enter Shop Name" value="{{$ret->shopname}}">
               </div>
 
               <div class="form-group">
-                <label for="">Retailer Code</label>
+                <label for="">Retailer Code</label><code>*</code>
                 <input type="text" class="form-control" id="code" name="code" placeholder="Enter Retailer Code" value="{{$ret->code}}">
               </div>
 
               <div class="form-group">
-                <label for="">Town</label>
+                <label for="">Town</label><code>*</code>
                 <select name="town_id" class="form-control">
                   <option value="{{$ret->Distributor->Town->id}}" selected>{{$ret->Distributor->Town->name}}</option>
                   @foreach($towns as $k => $v)
@@ -31,17 +31,17 @@
               </div>
 
               <div class="form-group">
-                <label for="">Owner Name</label>
+                <label for="">Owner Name</label><code>*</code>
                 <input type="text" class="form-control" id="ownername" name="ownername" placeholder="Owner Name" value="{{$ret->ownername}}">
               </div>
 
               <div class="form-group">
-                <label for="">Registered Mobile Number (RMN)</label>
+                <label for="">Registered Mobile Number (RMN)</label><code>*</code>
                 <input type="text" name="rmn" class="form-control" placeholder="01890100100" value="{{$ret->rmn}}">
               </div>
 
               <div class="form-group">
-                <label>Activate/Deactivate</label>
+                <label>Activate/Deactivate</label><code>*</code>
                 <select name="active" class="form-control">
                   <option value="1" @if($ret->active == '1') selected @else @endif>Active</option>
                   <option value="0" @if($ret->active == '0') selected @else @endif>Deactive</option>
@@ -53,27 +53,27 @@
 
             <div class="col-6">
               <div class="form-group">
-                <label for="">Email</label>
+                <label for="">Email</label><code>*</code>
                 <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com" value="{{$ret->email}}">
               </div>
 
               <div class="form-group">
-                <label for="">HQ</label>
+                <label for="">HQ</label><code>*</code>
                 <input type="text" class="form-control" id="hq" name="hq" placeholder="" value="{{$ret->hq}}">
               </div>
 
               <div class="form-group">
-                <label for="">DSH</label>
+                <label for="">DSH</label><code>*</code>
                 <input type="text" class="form-control" id="dsh" name="dsh" placeholder="" value="{{$ret->dsh}}">
               </div>
 
               <div class="form-group">
-                <label for="">RH</label>
+                <label for="">RH</label><code>*</code>
                 <input type="text" class="form-control" id="rh" name="rh" placeholder="" value="{{$ret->rh}}">
               </div>
 
               <div class="form-group">
-                <label for="">Scheme</label>
+                <label for="">Scheme</label><code>*</code>
                 <input type="text" class="form-control" id="scheme" name="scheme" placeholder="" value="{{$ret->scheme}}">
               </div>
             </div>

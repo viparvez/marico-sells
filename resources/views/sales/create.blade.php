@@ -10,34 +10,34 @@
           <div class="col-4">
             
             <div class="form-group">
-              <label for="">Retailer Code</label>
+              <label for="">Retailer Code</label><code>*</code>
               <input type="text" class="form-control" id="retailer_code" name="retailer_code" placeholder="Enter Retailer Code" onblur="load_retailer_info(this.value)">
 
               <input type="hidden" class="form-control" id="retailer_id" name="retailer_id">
             </div>
 
             <div class="form-group">
-              <label for="">Phone Number</label>
+              <label for="">Phone Number</label><code>*</code>
               <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number">
             </div>
 
             <div class="form-group">
-              <label for="">Name</label>
+              <label for="">Name</label><code>*</code>
               <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
             </div>
 
             <div class="form-group">
-              <label for="">Bazar</label>
+              <label for="">Bazar</label><code>*</code>
               <input type="text" class="form-control" id="bazar" name="bazar" placeholder="">
             </div>
 
             <div class="form-group">
-              <label for="">Location</label>
+              <label for="">Location</label><code>*</code>
               <input type="text" class="form-control" id="location" name="location">
             </div>
 
             <div class="form-group">
-              <label for="">Business Aarea</label>
+              <label for="">Business Aarea</label><code>*</code>
               <select class="form-control" name="businessarea">
                 <option value="">SELECT</option>
                 <option value="Brand/Product">Brand/Product</option>
@@ -50,17 +50,17 @@
           <div class="col-4">
             
             <div class="form-group">
-              <label for="">Query</label>
+              <label for="">Query</label><code>*</code>
               <textarea class="form-control" name="quest"></textarea>
             </div>
 
             <div class="form-group">
-              <label for="">Request</label>
+              <label for="">Request</label><code>*</code>
               <textarea class="form-control" name="req"></textarea>
             </div>
 
             <div class="form-group">
-              <label for="">Solution</label>
+              <label for="">Solution</label><code>*</code>
               <select class="form-control" name="solution">
                 <option value="">SELECT</option>
                 <option value="Solved">Solved</option>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group">
-              <label for="">Call Type</label>
+              <label for="">Call Type</label><code>*</code>
               <select class="form-control" name="calltype">
                 <option value="">SELECT</option>
                 <option value="New">New</option>

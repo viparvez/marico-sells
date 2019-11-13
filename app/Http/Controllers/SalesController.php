@@ -23,7 +23,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $orders = Order::where(['deleted' => '0'])->orderBy('created_at', 'DESC')->get();
+        $orders = Order::where(['deleted' => '0'])->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('sales.index', compact('orders'));
     }
@@ -237,8 +237,6 @@ class SalesController extends Controller
     }
 
 
-
-
     private function hasOrderitems($request){
         
         if (!array_key_exists('product_id', $request)) {
@@ -268,8 +266,42 @@ class SalesController extends Controller
     }
 
 
-    public function search() {
-      return view('sales.search');
+    public function search(Request $request) {
+
+      $result = Order::where(['deleted' => '0']);
+
+      if (!empty($request->from)) {
+        $result->where('created_at', '>=', $request->from);
+      }
+
+      if (!empty($request->to)) {
+        $result->where('created_at', '<=', $request->to.' 23:59:59');
+      }
+      
+      $orders = $result->orderBy('created_at', 'DESC')->paginate(20);
+
+      $from = $request->from;
+      $to = $request->to;
+
+      return view('sales.getsearch', compact('orders','from','to'));
+    }
+
+
+    public function download($from, $to) {
+
+      $result = Orderdetail::where(['deleted' => '0']);
+
+      if (!empty($from)) {
+        $result->where('created_at', '>=', $from);
+      }
+
+      if (!empty($to)) {
+        $result->where('created_at', '<=', $to.' 23:59:59');
+      }
+      
+      $orders = $result->orderBy('created_at', 'DESC')->get();
+
+      return view('sales.download', compact('orders'));
     }
 
 }
