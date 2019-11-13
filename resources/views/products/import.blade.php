@@ -71,6 +71,9 @@
           </div>
 
         </div>
+        <div class="row col-12">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{asset('/samples/products.csv')}}" download>Download Sample Template</a>
+        </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->

@@ -10,40 +10,19 @@
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item">Sales</li>
-            <li class="breadcrumb-item active">List</li>
+            <li class="breadcrumb-item active">Search</li>
           </ol>
         </div>
 
         <div class="col-12">
           <div class="card">
-            
-            <form class="form row" action="{{route('sales.search')}}" method="POST" style="padding-top: 10px">
-              {{csrf_field()}}
+
+            <div class="card-header row">
               
-              <div class="col-1"></div>
-
-              <div class="col-4">
-                <label>From</label>
-                <input class="form-control" type="date" name="from"f>
-
-              </div>
-
-              <div class="col-4">
-                <label>To</label>
-                <input class="form-control" type="date" name="to">
-              </div>
-
-              <div class="col-2">
-                <br>
-                <input type="submit" name="search" class="btn btn-success" value="SEARCH">
-              </div>
-
-            </form>
-
-
+            </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="" class="table table-striped">
+              <table id="example1" class="table table-striped">
                 <thead>
                 <tr>
                   <th>#SL</th>
@@ -56,21 +35,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($orders as $k => $v)
-                  <tr>
-                    <td>{{$k+1}}</td>
-                    <td>{{$v->code}}</td>
-                    <td>{{$v->Retailer->shopname}}</td>
-                    <td>{{$v->Retailer->code}}</td>
-                    <td>{{$v->created_at}}</td>
-                    <td>{{$v->CreatedBy->name}}</td>
-                    <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('sales.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
-                    </td>
-                  </tr>
-                @endforeach
+                  
+                </tbody>  
               </table>
-              <span style="float: right;">{{$orders->render()}}</span>
             </div>
             <!-- /.card-body -->
           </div>
@@ -86,22 +53,22 @@
 
 
 <div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class='modal-header'>
-        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-      </div>
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class='modal-header'>
+          <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        </div>
 
-      <div class="text-center">
-        <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
-      </div>
+        <div class="text-center">
+          <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
+        </div>
 
-      <div id="showcontent">
-        
+        <div id="showcontent">
+          
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 @endsection

@@ -49,6 +49,7 @@
                     </td>
                     <td>
                       <a class="btn btn-xs btn-success" onclick="show('{{route('users.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-warning" onclick="show('{{route('users.getChangePass',$v->id)}}')"><span style="color: white">Reset Password</span></a>
                     </td>
                   </tr>
                 @endforeach

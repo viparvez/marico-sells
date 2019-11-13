@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'sku_code' => 'required|max:64',
+            'sku_code' => 'required|max:64|unique',
             'sku_desc' => 'required|max:128',
             'unitprice' => 'required|numeric|max:9999999.99',
         ]);
@@ -116,7 +116,7 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'sku_code' => 'required|max:64',
+            'sku_code' => 'required|max:64|unique:products,sku_code,'.$id,
             'sku_desc' => 'required|max:128',
             'unitprice' => 'required|numeric|max:9999999.99',
         ]);

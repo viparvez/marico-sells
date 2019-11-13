@@ -256,7 +256,7 @@ class DistributorController extends Controller
 
               $town_id = Town::where(['code' => $row[1]])->first();
                 
-                Distributor::create([
+                DB::table('distributors')->insert([
                     'code' => $row[0],
                     'town_id' => $town_id->id,
                     'ownername' => $row[2],

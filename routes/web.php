@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('home');
 });
 
 Auth::routes();
@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
 	    'retailers' => 'RetailerController',
 	    'sales' => 'SalesController',
 	    'users' => 'UserController',
+	    'recepients' => 'EmailrecepientController'
 	]);
 
 	Route::get('/districts/import/from-csv',[
@@ -39,6 +40,11 @@ Route::group(['middleware' => ['auth']], function () {
 			'as' => 'districts.import',
 		]
 	);
+
+	Route::post('/sales/search','SalesController@search')->name('sales.search');
+	Route::get('/sales/search/{form}/{to}','SalesController@getsearch')->name('sales.getsearch');
+	Route::get('/sales/download/{form}/{to}','SalesController@download')->name('sales.download');
+
 	Route::post('/districts/import/from-csv','DistrictController@handleImport')->name('districts.handleimport');
 
 	Route::get('/retailers/getinfo/{code}', 'RetailerController@getinfo')->name('retailers.getinfo');
@@ -72,11 +78,19 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/communications/ftp/','FtpController@store')->name('ftp.store');
 	Route::put('/communications/ftp/update/{id}','FtpController@update')->name('ftp.update');
 
+	Route::get('/users/{userid}/changepass', 'UserController@getChangePass')->name('users.getChangePass');
+	Route::put('/users/{userid}/changepass', 'UserController@changepass')->name('users.changepass');
+
+	Route::get('/changepass', 'UserController@getMyChangePass')->name('users.getMyChangePass');
+	Route::put('/changepass', 'UserController@mychangepass')->name('users.mychangepass');
+
 });
 
 
 Route::get('/email/test','EmailController@test')->name('email.test');
 Route::get('/ftp/test','FtpController@test')->name('ftp.test');
+
+Route::get('/task/sendmail/runeod', 'TaskController@runeod')->name('runeod');
 
 
 

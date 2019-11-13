@@ -16,8 +16,8 @@
           </li>
 
           <!-- Sales Start -->
-          <li @if($route == 'sales.index' || $route == 'sales.create') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'sales.index' || $route == 'sales.create') class="nav-link active" @else class="nav-link" @endif>
+          <li @if($route == 'sales.index' || $route == 'sales.create' || $route == 'sales.search' || $route == 'sales.getsearch') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'sales.index' || $route == 'sales.create' || $route == 'sales.search' || $route == 'sales.getsearch') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Sales
@@ -26,7 +26,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('sales.index')}}" @if($route == 'sales.index') class="nav-link active" @else class="nav-link" @endif>
+                <a href="{{route('sales.index')}}" @if($route == 'sales.index' || $route == 'sales.search' || $route == 'sales.getsearch') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Sales</p>
                 </a>
@@ -101,8 +101,8 @@
           <!-- Retailer End-->
          
          <!-- Communications Start -->
-          <li @if($route == 'email.create' || $route == 'email.edit' || $route == 'ftp.create' || $route == 'ftp.edit') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
-            <a href="#" @if($route == 'email.create' || $route == 'email.edit' | $route == 'ftp.create' || $route == 'ftp.edit') class="nav-link active" @else class="nav-link" @endif>
+          <li @if($route == 'email.create' || $route == 'email.edit' || $route == 'ftp.create' || $route == 'ftp.edit' || $route == 'recepients.index') class="nav-item has-treeview menu-open" @else class="nav-item has-treeview" @endif>
+            <a href="#" @if($route == 'email.create' || $route == 'email.edit' | $route == 'ftp.create' || $route == 'ftp.edit' || $route == 'recepients.index') class="nav-link active" @else class="nav-link" @endif>
               <i class="nav-icon fas fa-envelope-square"></i>
               <p>
                 Communications
@@ -123,7 +123,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('recepients.index')}}" @if($route == 'recepients.index') class="nav-link active" @else class="nav-link" @endif>
                   <i class="far fa-circle nav-icon"></i>
                   <p>Email Recipients</p>
                 </a>
@@ -131,17 +131,6 @@
             </ul>
           </li>
           <!-- Communications End -->
-
-          <!-- Reports Start-->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-file-excel"></i>
-              <p>
-                Reports
-              </p>
-            </a>
-          </li>
-          <!-- Reports End-->
 
           <!-- Users Start-->
           <li class="nav-item has-treeview">

@@ -7,16 +7,12 @@
     <section class="content">
       <div class="row">
 
-        <div class="col-8">
+        <div class="col-10">
           <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item">Location Management</li>
-            <li class="breadcrumb-item active">Districts</li>
+            <li class="breadcrumb-item active">Email Recepients</li>
           </ol>
         </div>
-        <div class="col-2">
-          <a class="btn btn-block btn-warning btn-flat" href="{{route('districts.import')}}">IMPORT FROM CSV</a> <br>
-        </div> 
         <div class="col-2">
           <button class="btn btn-block btn-success btn-flat" data-toggle="modal" data-target="#myModal">NEW</button> <br>
         </div> 
@@ -29,27 +25,21 @@
                 <thead>
                 <tr>
                   <th>#SL</th>
-                  <th>Code</th>
-                  <th>Name</th>
-                  <th>Status</th>
+                  <th>Email Address</th>
+                  <th>Type</th>
+                  <th>Added By</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($districts as $k => $v)
+                @foreach($recs as $k => $v)
                   <tr>
                     <td>{{$k+1}}</td>
-                    <td>{{$v->code}}</td>
-                    <td>{{$v->name}}</td>
+                    <td>{{$v->address}}</td>
+                    <td>{{$v->rectype}}</td>
+                     <td>{{$v->CreatedBy->name}}</td>
                     <td>
-                      @if($v->active == '1')
-                        <span class="btn btn-xs btn-success">ACTIVE</span>
-                      @else
-                        <span class="btn btn-xs btn-danger">INACTIVE</span>
-                      @endif
-                    </td>
-                    <td>
-                      <a class="btn btn-xs btn-success" onclick="show('{{route('districts.show',$v->id)}}')"><span style="color: white">VIEW</span></a>
+                      <a class="btn btn-xs btn-danger" onclick="show('{{route('recepients.show',$v->id)}}')"><span style="color: white">DELETE</span></a>
                     </td>
                   </tr>
                 @endforeach
@@ -71,7 +61,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Add New District</h4>
+        <h4 class="modal-title">Add New Recepient</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -81,12 +71,21 @@
           <ul></ul>
       </div>
 
-      <form role="form" action="{{route('districts.store')}}" id="create" method="POST">
+      <form role="form" action="{{route('recepients.store')}}" id="create" method="POST">
         <div class="card-body">
+          <input type="hidden" name="template_id" value="{{$templates->id}}">
           {{csrf_field()}}
           <div class="form-group">
-            <label for="districtName">District Name</label>
-            <input type="text" class="form-control" id="districtName" name="name" placeholder="Enter Name">
+            <label for="address">Email Address</label><code>*</code>
+            <input type="email" class="form-control" id="address" name="address" placeholder="Enter Email">
+          </div>
+
+          <div class="form-group">
+            <label>Type</label><code>*</code><br>
+            <select name="rectype" class="form-control">
+              <option value="PRIMARY">PRIMARY</option>
+              <option value="CC">CC</option>
+            </select>
           </div>
 
         </div>

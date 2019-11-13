@@ -172,4 +172,89 @@ class UserController extends Controller
     {
         //
     }
+
+
+    public function getChangePass($id) {
+        $user = User::where(['id' => $id, 'deleted' => '0'])->first();
+        return view('users.changepass', compact('user'));
+    }
+
+
+    public function changepass(Request $request, $userid){
+        
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            DB::table('users')->where(['id' => $userid])->update(
+                [
+                    'password' => Hash::make($request->password),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'Password Changed!']);
+        
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          return response()->json(['error'=>array('Could not change password!')]);
+
+        }
+    }
+
+    public function getMyChangePass(){
+        return view('users.mypasschange');
+    }
+
+    public function mychangepass(Request $request){
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+        $user = User::findOrFail(Auth::user()->id);
+
+        if (!Hash::check($request->old_password, $user->password)){
+            return response()->json(['error'=>array('Old password does not match')]);
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            DB::table('users')->where(['id' => Auth::user()->id])->update(
+                [
+                    'password' => Hash::make($request->password),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'updatedbyuserid' => Auth::user()->id,
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json(['success'=>'Password Changed!']);
+        
+        } catch (\Exception $e) {
+
+          DB::rollback();
+          return response()->json(['error'=>array('Could not change password!')]);
+
+        }
+    }
 }
