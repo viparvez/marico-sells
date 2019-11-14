@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where(['deleted' => '0'])->orderBy('name', 'DESC')->get();
+        $users = User::where(['deleted' => '0'])->whereNotIn('id',['1'])->orderBy('name', 'DESC')->get();
         return view('users.index', compact('users'));
     }
 

@@ -1,0 +1,15 @@
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE distributors;
+TRUNCATE TABLE districts;
+TRUNCATE TABLE emailrecepients;
+TRUNCATE TABLE emailauthentications;
+TRUNCATE TABLE emailtemplates;
+TRUNCATE TABLE ftpauthentications;
+TRUNCATE TABLE migrations;
+TRUNCATE TABLE orderdetails;
+TRUNCATE TABLE orders;
+TRUNCATE TABLE productactions;
+TRUNCATE TABLE products;
+TRUNCATE TABLE retailers;
+TRUNCATE TABLE towns;
+SET FOREIGN_KEY_CHECKS=1;
