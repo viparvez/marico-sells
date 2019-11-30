@@ -1363,6 +1363,7 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2019-11-13T20:09:28+00:00"
+
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -1456,6 +1457,7 @@
                 "xlsx"
             ],
             "time": "2019-11-18T11:33:05+00:00"
+
         },
         {
             "name": "phpoption/phpoption",

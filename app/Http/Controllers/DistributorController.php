@@ -485,7 +485,7 @@ class DistributorController extends Controller
 
                 $report_error[$key]['message'] = $value['message'];
 
-		$report_error[$key]['RowNumber'] = $value['RowNumber'];
+				$report_error[$key]['RowNumber'] = $value['RowNumber'];
 
             }
 
@@ -512,8 +512,6 @@ class DistributorController extends Controller
 
 
               $town_id = Town::where(['code' => $row[1]])->first();
-
-                
 
                 DB::table('distributors')->insert([
 

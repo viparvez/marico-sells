@@ -76,8 +76,7 @@ function update() {
 
         showConfirmButton: false,
 
-        timer: 2000
-
+        timer: 1000
       });
 
 

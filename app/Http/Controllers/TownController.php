@@ -457,17 +457,13 @@ class TownController extends Controller
                     [
 
                         'code' => time(),
-
                         'name' => $row[1],
-
                         'district_id' => $dist_id->id,
-
+                        'name' => $row[0],
+                        'district_id' => $dist_id->id,
                         'created_at' => date('Y-m-d H:i:s'),
-
                         'updated_at' => date('Y-m-d H:i:s'),
-
                         'createdbyuserid' => Auth::user()->id,
-
                         'updatedbyuserid' => Auth::user()->id,
 
                     ]

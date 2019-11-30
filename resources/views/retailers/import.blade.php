@@ -161,15 +161,15 @@
         </div>
 
 
-
         <div class="row col-12">
 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{asset('/samples/retailer.csv')}}" download>Download Sample Template</a>
 
         </div>
 
-
-
+        <div class="row col-12">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{asset('/samples/retailer.csv')}}" download>Download Sample Template</a>
+        </div>
         <!-- /.col -->
 
       </div>
