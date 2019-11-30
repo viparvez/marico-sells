@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Export\OrderExport; 
 
 class ReportsController extends Controller
 {
@@ -81,4 +82,15 @@ class ReportsController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export() {
+        return Excel::download(new OrderExport, 'orders.xlsx');
+    }
+
 }

@@ -9,12 +9,12 @@
     <input type="hidden" name="_method" value="PUT">
 
     <div class="form-group">
-      <label for="districtName">District Name</label>
+      <label for="districtName">District Name</label><code>*</code>
       <input type="text" class="form-control" id="districtName" name="name" placeholder="Enter Name" value="{{$district->name}}">
     </div>
 
     <div class="form-group">
-      <label>Activate/Deactivate</label>
+      <label>Activate/Deactivate</label><code>*</code>
       <select name="active" class="form-control">
         <option value="1" @if($district->active == '1') selected @else @endif>Active</option>
         <option value="0" @if($district->active == '0') selected @else @endif>Deactive</option>

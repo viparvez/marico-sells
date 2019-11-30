@@ -88,22 +88,22 @@
         <div class="card-body">
           {{csrf_field()}}
           <div class="form-group">
-            <label for="">Product Name</label>
+            <label for="">Product Name</label><code>*</code>
             <input type="text" class="form-control" id="productName" name="name" placeholder="Enter Name">
           </div>
 
           <div class="form-group">
-            <label for="">SKU Code</label>
+            <label for="">SKU Code</label><code>*</code>
             <input type="text" class="form-control" id="sku_code" name="sku_code" placeholder="SKU Code">
           </div>
 
           <div class="form-group">
-            <label for="">SKU Description</label>
+            <label for="">SKU Description</label><code>*</code>
             <textarea name="sku_desc" class="form-control"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="">Unit Price</label>
+            <label for="">Unit Price</label><code>*</code>
             <input type="text" class="form-control" id="unitprice" name="unitprice" placeholder="Example: 10.90">
           </div>
 

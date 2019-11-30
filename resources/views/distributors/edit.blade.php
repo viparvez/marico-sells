@@ -11,17 +11,17 @@
     <div class="row col-12">
             <div class="col-6">
               <div class="form-group">
-                <label for="">Registered Business Name</label>
+                <label for="">Registered Business Name</label><code>*</code>
                 <input type="text" class="form-control" id="distributorname" name="distributorname" placeholder="Enter Business Name" value="{{$dist->distributorname}}">
               </div>
 
               <div class="form-group">
-                <label for="">Distributor Code</label>
+                <label for="">Distributor Code</label><code>*</code>
                 <input type="text" class="form-control" id="code" name="code" placeholder="Enter Distributor Code" value="{{$dist->code}}">
               </div>
 
               <div class="form-group">
-                <label for="">Town</label>
+                <label for="">Town</label><code>*</code>
                 <select name="town_id" class="form-control">
                   <option value="{{$dist->Town->id}}" selected>{{$dist->Town->name}}</option>
                   @foreach($towns as $k => $v)
@@ -31,17 +31,17 @@
               </div>
 
               <div class="form-group">
-                <label for="">Owner Name</label>
+                <label for="">Owner Name</label><code>*</code>
                 <input type="text" class="form-control" id="ownername" name="ownername" placeholder="Owner Name" value="{{$dist->ownername}}">
               </div>
 
               <div class="form-group">
-                <label for="">Registered Mobile Number (RMN)</label>
+                <label for="">Registered Mobile Number (RMN)</label><code>*</code>
                 <input type="text" name="rmn" class="form-control" placeholder="01890100100" value="{{$dist->rmn}}">
               </div>
 
               <div class="form-group">
-                <label>Activate/Deactivate</label>
+                <label>Activate/Deactivate</label><code>*</code>
                 <select name="active" class="form-control">
                   <option value="1" @if($dist->active == '1') selected @else @endif>Active</option>
                   <option value="0" @if($dist->active == '0') selected @else @endif>Deactive</option>
@@ -53,27 +53,27 @@
 
             <div class="col-6">
               <div class="form-group">
-                <label for="">Email</label>
+                <label for="">Email</label><code>*</code>
                 <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com" value="{{$dist->email}}">
               </div>
 
               <div class="form-group">
-                <label for="">HQ</label>
+                <label for="">HQ</label><code>*</code>
                 <input type="text" class="form-control" id="hq" name="hq" placeholder="" value="{{$dist->hq}}">
               </div>
 
               <div class="form-group">
-                <label for="">DSH</label>
+                <label for="">DSH</label><code>*</code>
                 <input type="text" class="form-control" id="dsh" name="dsh" placeholder="" value="{{$dist->dsh}}">
               </div>
 
               <div class="form-group">
-                <label for="">RH</label>
+                <label for="">RH</label><code>*</code>
                 <input type="text" class="form-control" id="rh" name="rh" placeholder="" value="{{$dist->rh}}">
               </div>
 
               <div class="form-group">
-                <label for="">Scheme</label>
+                <label for="">Scheme</label><code>*</code>
                 <input type="text" class="form-control" id="scheme" name="scheme" placeholder="" value="{{$dist->scheme}}">
               </div>
             </div>

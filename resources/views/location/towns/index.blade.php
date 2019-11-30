@@ -87,12 +87,12 @@
         <div class="card-body">
           {{csrf_field()}}
           <div class="form-group">
-            <label for="districtName">Town Name</label>
+            <label for="districtName">Town Name</label><code>*</code>
             <input type="text" class="form-control" id="townName" name="name" placeholder="Enter Name">
           </div>
 
           <div class="form-group">
-            <label for="districtName">District</label>
+            <label for="districtName">District</label><code>*</code>
             <select class="form-control" name="district_id">
               @foreach($districts as $k => $v)
                 <option value="{{$v->id}}">{{$v->name}}</option>

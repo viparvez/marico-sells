@@ -45,7 +45,6 @@
                     <td>{{$v->Distributor->distributorname}}</td>
                     <td>{{$v->Distributor->Town->name}}</td>
                     <td>{{$v->rmn}}</td>
-                    <td>{{$v->email}}</td>
                     <td>
                       @if($v->active == '1')
                         <span class="btn btn-xs btn-success">ACTIVE</span>
@@ -58,6 +57,7 @@
                     </td>
                   </tr>
                 @endforeach
+                </tbody>
               </table>
             </div>
             <!-- /.card-body -->
@@ -93,17 +93,17 @@
           <div class="row col-12">
             <div class="col-6">
               <div class="form-group">
-                <label for="">Shop Name</label>
+                <label for="">Shop Name</label><code>*</code>
                 <input type="text" class="form-control" id="shopname" name="shopname" placeholder="Shop Name">
               </div>
 
               <div class="form-group">
-                <label for="">Retailer Code</label>
+                <label for="">Retailer Code</label><code>*</code>
                 <input type="text" class="form-control" id="code" name="code" placeholder="Retailer Code">
               </div>
 
               <div class="form-group">
-                <label for="">Distributor</label>
+                <label for="">Distributor</label><code>*</code>
                 <select name="distributor_id" class="form-control">
                   <option value="">Select</option>
                   @foreach($distributors as $k => $v)
@@ -116,16 +116,16 @@
 
             <div class="col-6">
               <div class="form-group">
-                <label for="">Owner Name</label>
+                <label for="">Owner Name</label><code>*</code>
                 <input type="text" class="form-control" id="ownername" name="ownername" placeholder="Owner Name">
               </div>
 
               <div class="form-group">
-                <label for="">Registered Mobile Number (RMN)</label>
+                <label for="">Registered Mobile Number (RMN)</label><code>*</code>
                 <input type="text" name="rmn" class="form-control" placeholder="01890100100">
               </div>
               <div class="form-group">
-                <label for="">Email</label>
+                <label for="">Email</label><code>*</code>
                 <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com">
               </div>
             </div>

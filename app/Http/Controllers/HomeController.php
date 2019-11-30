@@ -7,6 +7,7 @@ use App\Retailer;
 use App\Town;
 use App\Order;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -46,7 +47,9 @@ class HomeController extends Controller
                         ->whereRaw('created_at >= ?',[date('Y-m-d')])
                         ->orderBy('created_at', 'DESC')->take(5)->get();
 
-
+        if (Auth::user()->role == 'Agent') {
+            return redirect()->route('sales.create');
+        }
         return view('home', compact('result', 'last_calls'));
     }
 

@@ -9,12 +9,12 @@
     <input type="hidden" name="_method" value="PUT">
 
     <div class="form-group">
-      <label for="districtName">Town Name</label>
+      <label for="districtName">Town Name</label><code>*</code>
       <input type="text" class="form-control" id="districtName" name="name" placeholder="Enter Name" value="{{$town->name}}">
     </div>
 
     <div>
-      <label>District</label>  
+      <label>District</label><code>*</code>
       <select class="form-control" name="district_id">
         <option value="{{$town->District->id}}" selected>{{$town->District->name}}</option>
         @foreach($districts as $k=>$v)
@@ -24,7 +24,7 @@
     </div>
 
     <div class="form-group">
-      <label>Activate/Deactivate</label>
+      <label>Activate/Deactivate</label><code>*</code>
       <select name="active" class="form-control">
         <option value="1" @if($town->active == '1') selected @else @endif>Active</option>
         <option value="0" @if($town->active == '0') selected @else @endif>Deactive</option>

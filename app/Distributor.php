@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Distributor extends Model
 {
-    protected $fillable = ['code', 'ownername', 'distributorname', 'rmn', 'email', 'hq', 'dsh', 'rh', 'scheme', 'createdbyuserid', 'updatedbyuserid'];
+    protected $fillable = ['code', 'ownername', 'distributorname', 'town_id', 'rmn', 'email', 'hq', 'dsh', 'rh', 'scheme', 'createdbyuserid', 'updatedbyuserid'];
 
     public function CreatedBy() {
         return $this->belongsTo('App\User', 'createdbyuserid');

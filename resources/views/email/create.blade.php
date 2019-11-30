@@ -105,6 +105,25 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class='modal-header'>
+            <button type='button' class='close' data-dismiss='modal'>&times;</button>
+          </div>
+          <div class='alert alert-danger print-error-msg' id='error_messages' style='display:none'>
+            <ul></ul>
+          </div>
+          <div class="text-center">
+            <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
+          </div>
+
+          <div id="showcontent">
+            
+          </div>
+        </div>
+      </div>
+    </div>
 
 @endsection
 

@@ -54,7 +54,9 @@
                     @foreach($last_calls as $k=>$v)
                     <tr>
                       <td>{{date('h:i:s A', strtotime($v->created_at))}}</td>
-                      <td>{{$v->code}}</td>
+                      <td>
+                        <a href="#" onclick="show('{{route('sales.show',$v->id)}}')">{{$v->code}}</a>
+                      </td>
                       <td>{{$v->CreatedBy->name}}</td>
                       <td>{{$v->Retailer->shopname}}</td>
                       <td>{{$v->Retailer->code}}</td>
@@ -86,11 +88,31 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class='modal-header'>
+          <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        </div>
+
+        <div class="text-center">
+          <img src="{{url('/')}}/public/img/spinner.gif" id="spinner">
+        </div>
+
+        <div id="showcontent">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+
+    
 @endsection
 
 <!-- Resources -->
@@ -110,10 +132,15 @@
 <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 
+<script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+
 <script src="{{asset('dist/js/demo.js')}}"></script>
+
+<script src="{{asset('js/marico.js')}}"></script>
+
 @if (!empty($result))
 
-@if(count($result) < 10)
+@if(count($result) > 4 && count($result) < 10)
 
 <script type="text/javascript">
 
@@ -137,7 +164,7 @@
 
 </script>
 
-@else
+@elif(count($result) > 9)
 
 <script type="text/javascript">
 
