@@ -37,7 +37,7 @@ function update() {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 3000
+        timer: 1000
       });
 
   var _url = $("#update").attr("action");

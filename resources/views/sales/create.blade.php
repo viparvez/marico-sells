@@ -168,7 +168,10 @@
 
           <div class="row col-12">
             <div class="col-5"></div>
-            <div class="col-2"><button class="btn btn-success" type="submit" id="makesale">SUBMIT</button></div>
+            <div class="col-2">
+              <button class='btn btn-block btn-success btn-sm' id='submit' type='submit'>SUBMIT</button>
+              <button class='btn btn-block btn-success btn-sm' id='loading' style='display: none' disabled=''>Working...</button>
+            </div>
             <div class="col-5"></div>
           </div>
 
