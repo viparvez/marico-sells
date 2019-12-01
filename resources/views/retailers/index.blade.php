@@ -111,6 +111,11 @@
                   @endforeach
                 </select>
               </div>
+
+              <div class="form-group">
+                <label for="">TM Name</label>
+                <input type="text" class="form-control" id="tmname" name="tmname" placeholder="TM Name">
+              </div>
             </div>
 
 
@@ -127,6 +132,11 @@
               <div class="form-group">
                 <label for="">Email</label><code>*</code>
                 <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="">TM Email</label>
+                <input type="email" class="form-control" id="tmemail" name="tmemail" placeholder="TM Email">
               </div>
             </div>
           </div>       

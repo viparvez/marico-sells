@@ -140,7 +140,7 @@
 
 @if (!empty($result))
 
-@if(count($result) < 10)
+@if(count($result) > 4 && count($result) < 10)
 
 <script type="text/javascript">
 
@@ -164,7 +164,7 @@
 
 </script>
 
-@else
+@elif(count($result) > 9)
 
 <script type="text/javascript">
 

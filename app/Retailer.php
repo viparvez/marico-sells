@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Retailer extends Model
 {
-    protected $fillable = ['code', 'distributor_id', 'ownername', 'shopname', 'rmn', 'email', 'createdbyuserid', 'updatedbyuserid'];
+    protected $fillable = ['code', 'distributor_id', 'ownername', 'shopname', 'rmn', 'email', 'tmname', 'tmemail', 'createdbyuserid', 'updatedbyuserid'];
 
     public function CreatedBy() {
         return $this->belongsTo('App\User', 'createdbyuserid');

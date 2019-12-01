@@ -9,57 +9,13 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
+use PHPMailer\PHPMailer\SMTP;
+use App\Services\Email\Email;
+use App\Emailrecepient;
+
 
 class EmailController extends Controller
 {
-	public function sendmail(array $address, $body, array $cc = null, $subject){
-
-		$email = Emailauthentication::first();
-
-		if(!is_array($address)) {
-			return false;
-		}
-
-
-		$mail= new PHPMailer\PHPMailer();
-
-		$mail->SMTPDebug = 0;                              // Enable verbose debug output
-		$mail->isSMTP();                                      // Set mailer to use SMTP
-		$mail->Host = $email->outgoing_server;  // Specify main and backup SMTP servers
-		$mail->SMTPAuth = true;                               // Enable SMTP authentication
-		$mail->Username = $email->email;                 // SMTP username
-		$mail->Password = $email->password;                       // SMTP password
-		$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-		$mail->Port = 465;
-		$mail->setFrom($email->email, $email->alias);
-		$mail->addReplyTo($email->email, $email->alias);
-		$mail->isHTML(true);                                  // Set email format to HTML
-		$mail->Subject = $subject;
-		$mail->Body    = $body;
-
-		foreach ($address as $key => $value) {
-			$mail->addAddress($value);
-		}
-
-		if(!is_array($address)) {
-			return false;
-		} elseif($cc == null) {
-			
-		} else {
-			foreach ($cc as $key => $value) {
-				$mail->addCc($value);
-			}
-		}
-		
-
-		if(!$mail->send()) {
-		    return response()->json(['success'=>array('Email sent')]);
-		} else {
-		    return response()->json(['error'=>array('Could not send email')]);
-		}   
-
-	}
-
 
 	public function create(){
 		$email = Emailauthentication::first();
@@ -176,7 +132,56 @@ class EmailController extends Controller
 
 	public function test()
 	{
-		$this->sendmail(['viparvez@gmail.com'], 'Testing My Dear', null, 'Sending Root');
+        $email = Emailauthentication::first();
+
+        $address = array();
+
+        $copy = array(); 
+
+        $file = array(
+            'storage/app/reports/orders'.date('Ymd').'.xlsx',
+        );
+
+
+        $body = "
+            <html>
+                <body>
+                    <h3>Hi,</h3>
+                    <p>Please find the attached Telesales report for the date ".date('d/m/Y')."</p>
+                </body>
+            </html>
+        ";
+
+
+        $primary = Emailrecepient::where(['active' => '1', 'deleted' => '0', 'rectype' => 'PRIMARY'])->get();
+       
+        $CC = Emailrecepient::where(['active' => '1', 'deleted' => '0', 'rectype' => 'CC'])->get();
+
+		$mail = new Email();
+        
+        $mail->setCredentials($email->email, $email->password);
+
+        $mail->setFrom($email->alias);
+
+        $mail->setHost($email->outgoing_server);
+
+        $mail->setBody($body);
+
+        $mail->setSubject("Telesales Report - ".date('d/m/Y'));
+
+        if (count($primary) > 0) {
+            foreach ($primary as $key => $value) {
+                array_push($address, $value->address);
+            }
+        }
+
+        if (count($CC) > 0) {
+            foreach ($CC as $key => $value) {
+                array_push($copy, $value->address);
+            }
+        }
+
+        return $mail->send($address, $copy, $file);
 	}
     
 }

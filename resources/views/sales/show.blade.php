@@ -87,9 +87,9 @@
 								<td>{{$k+1}}</td>
 								<td>{{$v->Product->name}}</td>
 								<td>{{$v->Product->sku_code}}</td>
-								<td>{{$v->unitprice}}</td>
+								<td>{{number_format($v->unitprice, 2, '.', ',')}}</td>
 								<td>{{$v->qty}}</td>
-								<td>{{$v->subtotal}}</td>
+								<td>{{number_format($v->subtotal, 2, '.', ',')}}</td>
 							</tr>
 							@php
 								$total = $total + $v->subtotal;
@@ -99,7 +99,7 @@
 
 						<tr>
 							<td colspan="5" style="text-align: right; font-weight: bold;">TOTAL</td>
-							<td style="font-weight: bold;">{{$total}}</td>
+							<td style="font-weight: bold;">{{number_format($total, 2, '.', ',')}}</td>
 						</tr>
 					</tbody>
 				</table>

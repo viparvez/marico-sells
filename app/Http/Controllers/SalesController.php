@@ -12,7 +12,7 @@ use App\Product;
 use App\Order;
 use App\Orderdetail;
 use Session;
-use App\Http\Controllers\EmailController;
+use App\Services\Curl\Curlmarico;
 
 class SalesController extends Controller
 {
@@ -160,8 +160,10 @@ class SalesController extends Controller
             $sale = Order::where(['id' => $id])->first();
 
             $body = view('sales.show', compact('sale'));
-            
-            (new EmailController)->sendmail([$retailer->Distributor->email], $body, null, 'New Sale Notification');
+
+            $notify = new Curlmarico();
+
+            $notify->notifysale($id);
 
             return response()->json(['success'=> array('Order Placed Successfully')]);
         
@@ -184,7 +186,6 @@ class SalesController extends Controller
     public function show($id)
     {
         $sale = Order::where(['id' => $id])->first();
-
         return view('sales.show', compact('sale'));
     }
 

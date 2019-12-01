@@ -89,6 +89,11 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'maricolog' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/curl.log'),
+        ]
     ],
 
 ];

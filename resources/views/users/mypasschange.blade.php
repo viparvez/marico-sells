@@ -20,6 +20,7 @@
 
       <div class="col-4">
         <div class="form-group">
+          <label for="">Password:</label><code>*</code>
           <label for="">Confirm Password:</label><code>*</code>
           <input type="password" class="form-control" id="" name="password" placeholder="New Password">
         </div> 

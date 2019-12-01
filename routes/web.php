@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('report/export/', 'ReportsController@export');
+Route::get('/task/sendmail/runeod', 'ReportsController@sendEod')->name('sendEod');
 
 Route::group(['middleware' => ['auth']], function () {
     
@@ -89,8 +91,3 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/email/test','EmailController@test')->name('email.test');
 Route::get('/ftp/test','FtpController@test')->name('ftp.test');
-
-Route::get('/task/sendmail/runeod', 'TaskController@runeod')->name('runeod');
-
-
-
