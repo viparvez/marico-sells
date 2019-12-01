@@ -163,4 +163,27 @@ class ReportsController extends Controller
 
     }
 
+
+    public function eodtotm(){
+        
+        $order = Order::where(['deleted' => '0', 'active' => '1'])->whereBetween('created_at', [date('Y-m-d').' 00:00:01', date('Y-m-d').' 23:59:59'])->get();
+
+        $email = Emailauthentication::first();
+        $mail = new Email();
+        $mail->setCredentials($email->email, $email->password);
+        $mail->setFrom($email->alias);
+        $mail->setHost($email->outgoing_server);
+
+        foreach ($order as $key => $value) {
+            
+            $mail->setSubject("Telesales Order - " .$value->Retailer->shopname." - ".date('d/m/Y'));
+
+            $body = view('email.eodtotm', compact('value'));
+
+            $mail->setBody($body);
+
+            $mail->send([$value->Retailer->tmemail], null, null);
+        }
+    }
+
 }
