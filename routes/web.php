@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('report/export/', 'ReportsController@export');
 Route::get('/task/sendmail/runeod', 'ReportsController@sendEod')->name('sendEod');
+Route::get('/task/sendmail/eodtotm', 'ReportsController@eodtotm')->name('eodtotm');
 
 Route::group(['middleware' => ['auth']], function () {
     
