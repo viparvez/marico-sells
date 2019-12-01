@@ -8,11 +8,12 @@
 		<thead>
 			<tr>
 				<th>SL</th>
-				<th>Order Code</th>
+				<th>Order Numbe</th>
 				<th>Retailer Name</th>
 				<th>Retailer Code</th>
 				<th>Distributor Name</th>
 				<th>Distributor Code</th>
+				<th>BEAT_DESC</th>
 				<th>Retailer Phone Number</th>
 				<th>SKU Name</th>
 				<th>SKU Code</th>
@@ -20,6 +21,8 @@
 				<th>Unit Price</th>
 				<th>Quantity</th>
 				<th>Subtotal</th>
+				<th>Download Flag</th>
+				<th>CS Download Flag</th>
 				<th>Date</th>
 			</tr>
 		</thead>
@@ -33,6 +36,7 @@
 				<td>{{$v->Order->Retailer->code}}</td>
 				<td>{{$v->Order->Retailer->Distributor->distributorname}}</td>
 				<td>{{$v->Order->Retailer->Distributor->code}}</td>
+				<td>WADALAGAON(WK)</td>
 				<td>{{$v->Order->Retailer->rmn}}</td>
 				<td>{{$v->Product->name}}</td>
 				<td>{{$v->Product->sku_code}}</td>
@@ -40,6 +44,8 @@
 				<td>{{$v->unitprice}}</td>
 				<td>{{$v->qty}}</td>
 				<td>{{$v->subtotal}}</td>
+				<td>N</td>
+				<td>N</td>
 				<td>{{date('Y-m-d', strtotime($v->created_at))}}</td>
 			</tr>
 			@endforeach

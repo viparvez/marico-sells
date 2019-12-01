@@ -104,6 +104,8 @@ class RetailerController extends Controller
 
             'email' => 'required|email|max:128',
 
+            'tmemail' => 'email|nullable'
+
         ]);
 
 
@@ -140,6 +142,10 @@ class RetailerController extends Controller
 
                     'email' => $request->email,
 
+                    'tmname' => $request->tmname,
+
+                    'tmemail' => $request->tmemail,
+
                     'created_at' => date('Y-m-d H:i:s'),
 
                     'updated_at' => date('Y-m-d H:i:s'),
@@ -169,8 +175,6 @@ class RetailerController extends Controller
           DB::rollback();
 
           return response()->json(['error'=>array('Could not add retailer!')]);
-
-
 
         }
 
@@ -264,6 +268,8 @@ class RetailerController extends Controller
 
             'email' => 'required|email|max:128',
 
+            'tmemail' => 'email|nullable'
+
         ]);
 
 
@@ -299,6 +305,10 @@ class RetailerController extends Controller
                     'rmn' => $request->rmn,
 
                     'email' => $request->email,
+
+                    'tmname' => $request->tmname,
+
+                    'tmemail' => $request->tmemail,
 
                     'active' => $request->active,
 
@@ -506,11 +516,15 @@ class RetailerController extends Controller
 
                 $report_error[$key]['email'] = $value['5'];
 
-                $report_error[$key]['address'] = $value['6'];
+                $report_error[$key]['tmname'] = $value['6'];
+
+                $report_error[$key]['tmemail'] = $value['7'];
+
+                $report_error[$key]['address'] = $value['8'];
 
                 $report_error[$key]['message'] = $value['message'];
 
-		$report_error[$key]['RowNumber'] = $value['RowNumber'];
+		        $report_error[$key]['RowNumber'] = $value['RowNumber'];
 
             }
 

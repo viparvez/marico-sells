@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Emailrecepient extends Model
 {
-    protected $fillable = ['template_id', 'address', 'type', 'createdbyuserid', 'updatedbyuserid'];
+    protected $fillable = ['template_id', 'address', 'rectype', 'createdbyuserid', 'updatedbyuserid'];
 
     public function CreatedBy() {
         return $this->belongsTo('App\User', 'createdbyuserid');

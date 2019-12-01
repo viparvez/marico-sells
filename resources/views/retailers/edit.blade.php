@@ -31,6 +31,11 @@
               </div>
 
               <div class="form-group">
+                <label for="">TM Name</label>
+                <input type="text" class="form-control" id="tmname" name="tmname" placeholder="TM Name" value="{{$ret->tmname}}">
+              </div>
+
+              <div class="form-group">
                 <label>Activate/Deactivate</label><code>*</code>
                 <select name="active" class="form-control">
                   <option value="1" @if($ret->active == '1') selected @else @endif>Active</option>
@@ -54,6 +59,10 @@
               <div class="form-group">
                 <label for="">Email</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="example@example.com" value="{{$ret->email}}">
+              </div>
+              <div class="form-group">
+                <label for="">TM Email</label>
+                <input type="email" class="form-control" id="tmemail" name="tmemail" placeholder="TM Email" value="{{$ret->tmemail}}">
               </div>
             </div>
           </div>       

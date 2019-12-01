@@ -112,6 +112,10 @@
 
                   <th>Email</th>
 
+                  <th>TM Name</th>
+
+                  <th>TM Email</th>
+
                   <th>Address</th>
 
                   <th>Message</th>
@@ -137,6 +141,10 @@
                       <td>{{$v['rmn']}}</td>
 
                       <td>{{$v['email']}}</td>
+
+                      <td>{{$v['tmname']}}</td>
+
+                      <td>{{$v['tmemail']}}</td>
 
                       <td>{{$v['address']}}</td>
 

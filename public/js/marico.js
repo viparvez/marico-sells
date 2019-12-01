@@ -280,7 +280,6 @@ $(document).ready(function() {
               success: function(data) {
 
 
-
                   if($.isEmptyObject(data.error)){
 
                     $('#myModal').modal('hide');

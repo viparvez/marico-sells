@@ -177,8 +177,6 @@ class Retailerimport
 
 			if(!empty($row[5])){
 
-
-
 				if (!filter_var($row[5], FILTER_VALIDATE_EMAIL)) {
 
 				    $row['RowNumber'] = $key+2;
@@ -191,15 +189,27 @@ class Retailerimport
 
 				} 
 
-
-
 			} 
 
 
+			if(!empty($row[6])){
+
+				if (!filter_var($row[6], FILTER_VALIDATE_EMAIL)) {
+
+				    $row['RowNumber'] = $key+2;
+
+				    $row['message'] = 'Invalid Email';
+
+				    $this->errorRows[$key] = $row;
+
+				    $this->valid = false;
+
+				} 
+
+			}
 
 
-
-			if(empty($row[6])){
+			if(empty($row[8])){
 
 				$row['RowNumber'] = $key+2;
 
@@ -208,8 +218,6 @@ class Retailerimport
 				$this->errorRows[$key] = $row;
 
 				$this->valid = false;
-
-
 
 			} 
 

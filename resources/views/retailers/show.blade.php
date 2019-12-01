@@ -60,6 +60,18 @@
 
 	    </tr>
 
+
+	    <tr>
+
+	      <td style="text-align: left; color: #000080"><b>TM Name</b></td>
+
+	      <td>{{$ret->tmname}}</td>
+
+	      <td style="text-align: left; color: #000080"><b>TM Email</b></td>
+
+	      <td>{{$ret->tmemail}}</td>
+
+	    </tr>
 	      
 
 	    <tr>

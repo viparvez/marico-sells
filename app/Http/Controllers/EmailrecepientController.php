@@ -48,6 +48,7 @@ class EmailrecepientController extends Controller
             'template_id' => 'required'
         ]);
 
+
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()]);
         }
