@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef05e01cf5ab6358cc067e92ec7f08cc",
+    "content-hash": "4440e8e191b002866947c49fefeac6d5",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -379,6 +379,60 @@
                 "trusted proxy"
             ],
             "time": "2019-09-03T16:45:42+00:00"
+        },
+        {
+            "name": "ixudra/curl",
+            "version": "6.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ixudra/curl.git",
+                "reference": "ff1b23dba264272a7b3a8fef01f73eec23c8fbe7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ixudra/curl/zipball/ff1b23dba264272a7b3a8fef01f73eec23c8fbe7",
+                "reference": "ff1b23dba264272a7b3a8fef01f73eec23c8fbe7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "illuminate/support": ">=4.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ixudra\\Curl\\CurlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Curl": "Ixudra\\Curl\\Facades\\Curl"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ixudra\\Curl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Oris",
+                    "email": "jan.oris@ixudra.be"
+                }
+            ],
+            "description": "Custom PHP Curl library for the Laravel 5 framework - developed by Ixudra",
+            "homepage": "http://ixudra.be",
+            "keywords": [
+                "Ixudra",
+                "curl",
+                "laravel"
+            ],
+            "time": "2019-11-02T09:48:26+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1363,7 +1417,6 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2019-11-13T20:09:28+00:00"
-
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -1457,7 +1510,6 @@
                 "xlsx"
             ],
             "time": "2019-11-18T11:33:05+00:00"
-
         },
         {
             "name": "phpoption/phpoption",

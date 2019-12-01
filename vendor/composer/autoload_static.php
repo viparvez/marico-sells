@@ -165,6 +165,7 @@ class ComposerStaticInitbf4024e497831520c3cc7ddf215a7ad5
         ),
         'I' => 
         array (
+            'Ixudra\\Curl\\' => 12,
             'Illuminate\\' => 11,
         ),
         'F' => 
@@ -383,6 +384,10 @@ class ComposerStaticInitbf4024e497831520c3cc7ddf215a7ad5
         array (
             0 => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src',
         ),
+        'Ixudra\\Curl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ixudra/curl/src',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -470,6 +475,7 @@ class ComposerStaticInitbf4024e497831520c3cc7ddf215a7ad5
         'App\\Emailrecepient' => __DIR__ . '/../..' . '/app/Emailrecepient.php',
         'App\\Emailtemplate' => __DIR__ . '/../..' . '/app/Emailtemplate.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Export\\OrderExport' => __DIR__ . '/../..' . '/app/Http/Controllers/Export.php',
         'App\\Ftpauthentication' => __DIR__ . '/../..' . '/app/Ftpauthentication.php',
         'App\\Ftplog' => __DIR__ . '/../..' . '/app/Ftplog.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -2025,6 +2031,10 @@ class ComposerStaticInitbf4024e497831520c3cc7ddf215a7ad5
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Ixudra\\Curl\\Builder' => __DIR__ . '/..' . '/ixudra/curl/src/Builder.php',
+        'Ixudra\\Curl\\CurlService' => __DIR__ . '/..' . '/ixudra/curl/src/CurlService.php',
+        'Ixudra\\Curl\\CurlServiceProvider' => __DIR__ . '/..' . '/ixudra/curl/src/CurlServiceProvider.php',
+        'Ixudra\\Curl\\Facades\\Curl' => __DIR__ . '/..' . '/ixudra/curl/src/Facades/Curl.php',
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',

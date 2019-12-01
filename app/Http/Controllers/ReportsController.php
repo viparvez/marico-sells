@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Export\OrderExport; 
+use App\Exports\OrderExport; 
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportsController extends Controller
 {
@@ -90,7 +91,7 @@ class ReportsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function export() {
-        return Excel::download(new OrderExport, 'orders.xlsx');
+        Excel::store(new OrderExport, 'reports/orders'.date('Ymd').'.xlsx');
     }
 
 }
